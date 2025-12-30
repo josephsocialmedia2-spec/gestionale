@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard 7 Aree</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* =======================
+   VARIABILI
+======================= */
+:root{
+  --gold:#FFD700;
+  --silver:#C0C0C0;
+  --blue:#1E90FF;
+  --green:#32CD32;
+  --purple:#8a2be2;
+  --dark:#0A0E17;
+  --card:#121827;
+}
+
+/* =======================
+   RESET
+======================= */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
+body{background:var(--dark);color:#fff;min-height:100vh}
+
+/* =======================
+   HEADER
+======================= */
+.header{
+  padding:20px;
+  text-align:center;
+  background:rgba(10,14,23,.9);
+  border-bottom:1px solid rgba(255,215,0,.2)
+}
+.main-title{
+  font-size:26px;
+  background:linear-gradient(to right,var(--gold),var(--silver));
+  -webkit-background-clip:text;
+  color:transparent
+}
+.subtitle{font-size:14px;color:var(--silver)}
+
+/* =======================
+   GRID CARTE
+======================= */
+.container{padding:15px 15px 90px}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:15px
+}
+.card{
+  position:relative;
+  padding:20px;
+  min-height:140px;
+  border-radius:16px;
+  text-decoration:none;
+  color:#fff;
+  text-align:center;
+  background:linear-gradient(145deg,#121827,#0A0E17);
+  border:1px solid rgba(255,215,0,.15);
+  transition:.3s
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.03);
+  border-color:var(--gold);
+  box-shadow:0 15px 30px rgba(255,215,0,.15)
+}
+.card i{font-size:32px;color:var(--gold);margin-bottom:10px}
+.card h3{font-size:18px;margin-bottom:5px}
+.card p{font-size:12px;color:rgba(255,255,255,.7)}
+.badge{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:var(--green);
+  font-size:10px;
+  padding:3px 6px;
+  border-radius:10px
+}
+
+/* =======================
+   FOOTER
+======================= */
+.footer{
+  position:fixed;
+  bottom:0;left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  background:rgba(10,14,23,.95);
+  border-top:1px solid rgba(255,215,0,.2);
+  padding:12px
+}
+.footer button{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:12px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer
+}
+.footer i{font-size:20px;color:var(--silver)}
+.footer .active i{color:var(--gold)}
+
+/* =======================
+   MODAL
+======================= */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:999
+}
+.modal-box{
+  background:var(--card);
+  border-radius:20px;
+  padding:25px;
+  max-width:500px;
+  width:100%;
+  border:1px solid rgba(255,215,0,.3)
+}
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px
+}
+.close{cursor:pointer;font-size:24px;color:var(--silver)}
+.close:hover{color:var(--gold)}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <h1 class="main-title">DASHBOARD 7 AREE</h1>
+  <p class="subtitle">Gestisci il tuo business in modo strategico</p>
+</header>
+
+<main class="container">
+  <section class="cards">
+
+    <a class="card" data-card="acquisizione">
+      <i class="fas fa-download"></i>
+      <h3>ACQUISIZIONE</h3>
+      <p>Nuovi clienti</p>
+      <span class="badge">3</span>
+    </a>
+
+    <a class="card" data-card="business">
+      <i class="fas fa-briefcase"></i>
+      <h3>BUSINESS</h3>
+      <p>Gestione</p>
+    </a>
+
+    <a class="card" data-card="lead">
+      <i class="fas fa-funnel-dollar"></i>
+      <h3>LEAD</h3>
+      <p>Pipeline</p>
+      <span class="badge">12</span>
+    </a>
+
+    <a class="card" data-card="postvendita">
+      <i class="fas fa-handshake"></i>
+      <h3>POST-VENDITA</h3>
+      <p>Fidelizzazione</p>
+    </a>
+
+    <a class="card" data-card="promozione">
+      <i class="fas fa-megaphone"></i>
+      <h3>PROMOZIONE</h3>
+      <p>Marketing</p>
+      <span class="badge">5</span>
+    </a>
+
+  </section>
+</main>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="modalTitle"></h2>
+      <span class="close" id="close">&times;</span>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<footer class="footer">
+  <button class="active"><i class="fas fa-home"></i>Home</button>
+  <button><i class="fas fa-chart-bar"></i>Stats</button>
+  <button><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
+  <button><i class="fas fa-tasks"></i>Task</button>
+  <button><i class="fas fa-cog"></i>Setup</button>
+</footer>
+
+<script>
+const data={
+  acquisizione:"Strategie per acquisire nuovi clienti",
+  business:"Gestione operativa del business",
+  lead:"Pipeline e conversioni",
+  postvendita:"Assistenza e fidelizzazione",
+  promozione:"Marketing e campagne"
+};
+
+const modal=document.getElementById("modal");
+const title=document.getElementById("modalTitle");
+const body=document.getElementById("modalBody");
+
+document.querySelectorAll(".card").forEach(card=>{
+  card.onclick=e=>{
+    e.preventDefault();
+    const key=card.dataset.card;
+    title.textContent=key.toUpperCase();
+    body.textContent=data[key];
+    modal.style.display="flex";
+  };
+});
+
+document.getElementById("close").onclick=()=>modal.style.display="none";
+modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
+</script>
+
+</body>
+</html>
