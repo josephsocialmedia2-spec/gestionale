@@ -105,34 +105,57 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 <main class="container">
 <section class="cards">
 
-  <!-- ACQUISIZIONE -->
-  <div class="card" onclick="apri('acquisizione')">
-   <i class="fas fa-handshake"></i> 
-    <h3>ACQUISIZIONE</h3>
-    <p>Base del sistema</p>
-  </div>
+  <main class="container">
+  <section class="cards">
 
-  <!-- PROMOZIONE -->
-  <div class="card" onclick="apri('promozione')">
-   <i class="fas fa-bullseye"></i>
-    <h3>PROMOZIONE</h3>
-    <p>Visibilità & marketing</p>
-  </div>
+    <div class="card" data-key="acquisire">
+      <i class="fas fa-download"></i>
+      <h3>1) ACQUISIRE</h3>
+      <p>Senza incarichi, non esiste il lavoro.</p>
+      <span class="badge" title="Solo esempio">NEW</span>
+    </div>
 
-  <!-- LEAD -->
-  <div class="card" onclick="apri('lead')">
-   <i class="fas fa-user"></i>   
-    <h3>LEAD</h3>
-    <p>Domanda reale</p>
-  </div>
+    <div class="card" data-key="promuovere">
+      <i class="fas fa-megaphone"></i>
+      <h3>2) PROMUOVERE</h3>
+      <p>La visibilità trasforma l’immobile in opportunità.</p>
+    </div>
 
-  <!-- METODO / FOLLOW-UP -->
-  <div class="card" onclick="apri('metodo')">
-   <i class="fas fa-tools"></i>   
-    <h3>METODO</h3>
-    <p>Sacrificio • costanza • risultato</p>
-    <span class="badge">FOLLOW-UP</span>
-  </div>
+    <div class="card" data-key="lead">
+      <i class="fas fa-funnel-dollar"></i>
+      <h3>3) LEAD</h3>
+      <p>Creare domanda reale.</p>
+    </div>
+
+    <div class="card" data-key="followup">
+      <i class="fas fa-comments"></i>
+      <h3>4) FOLLOW-UP</h3>
+      <p>Il valore si costruisce nel tempo.</p>
+    </div>
+
+    <div class="card" data-key="trattativa">
+      <i class="fas fa-scale-balanced"></i>
+      <h3>5) TRATTATIVA</h3>
+      <p>Trasformare interesse in accordo.</p>
+    </div>
+
+    <div class="card" data-key="fidelizzare">
+      <i class="fas fa-handshake"></i>
+      <h3>6) FIDELIZZARE</h3>
+      <p>Il business continua dopo la vendita.</p>
+    </div>
+
+    <div class="card" data-key="backoffice">
+      <i class="fas fa-briefcase"></i>
+      <h3>7) BACK OFFICE</h3>
+      <p>Senza controllo, non c’è crescita.</p>
+    </div>
+
+    <div class="card disabled" data-key="vuoto" title="Spazio futuro">
+      <i class="fas fa-plus"></i>
+      <h3>8) FUTURO</h3>
+      <p>Finestra vuota: la riempiamo dopo.</p>
+    </div>
 
 </section>
 </main>
@@ -165,4 +188,5 @@ function apri(nome){
 
 </body>
 </html>
+
 
