@@ -3,238 +3,627 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestionale – Dashboard</title>
-
+<title>Gestionale – Programmi (Acquisire + Promuovere)</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <style>
-/* =======================
-   VARIABILI
-======================= */
 :root{
   --gold:#FFD700;
   --silver:#C0C0C0;
   --green:#32CD32;
   --dark:#0A0E17;
   --card:#121827;
+  --danger:#ff4d4d;
 }
-
-/* =======================
-   RESET
-======================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
 body{background:var(--dark);color:#fff;min-height:100vh}
-
-/* =======================
-   HEADER
-======================= */
+a{color:inherit}
 .header{
-  padding:20px;
-  text-align:center;
-  background:rgba(10,14,23,.9);
-  border-bottom:1px solid rgba(255,215,0,.2)
+  position:sticky;top:0;z-index:5;
+  padding:14px 16px;
+  background:rgba(10,14,23,.95);
+  border-bottom:1px solid rgba(255,215,0,.2);
+  backdrop-filter: blur(6px);
 }
-.main-title{
-  font-size:26px;
-  background:linear-gradient(to right,var(--gold),var(--silver));
-  -webkit-background-clip:text;
-  color:transparent
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{
+  display:flex;align-items:center;gap:10px;
+  font-weight:700;letter-spacing:.08em;
 }
-.subtitle{font-size:14px;color:var(--silver)}
-
-/* =======================
-   GRID CARTE
-======================= */
-.container{padding:15px 15px 90px}
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
-  gap:15px
-}
-.card{
-  position:relative;
-  padding:20px;
-  min-height:150px;
-  border-radius:16px;
-  text-decoration:none;
-  color:#fff;
-  text-align:center;
+.brand .dot{width:10px;height:10px;border-radius:99px;background:var(--gold);box-shadow:0 0 18px rgba(255,215,0,.35)}
+.actions{display:flex;gap:10px;align-items:center}
+.btn{
+  border:1px solid rgba(255,215,0,.25);
   background:linear-gradient(145deg,#121827,#0A0E17);
-  border:1px solid rgba(255,215,0,.15);
-  transition:.3s;
+  color:#fff;
+  padding:10px 12px;
+  border-radius:12px;
   cursor:pointer;
+  transition:.2s;
+  display:inline-flex;align-items:center;gap:8px;
+  text-decoration:none;
   user-select:none;
 }
-.card:hover{
-  transform:translateY(-8px) scale(1.03);
+.btn:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 10px 20px rgba(255,215,0,.12)}
+.btn.ghost{border-color:rgba(255,255,255,.12)}
+.btn.danger{border-color:rgba(255,77,77,.35)}
+.btn.danger:hover{border-color:var(--danger);box-shadow:0 10px 20px rgba(255,77,77,.12)}
+
+.tabs{
+  margin-top:12px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.tab{
+  text-align:center;
+  padding:10px 12px;
+  border-radius:14px;
+  border:1px solid rgba(255,215,0,.18);
+  background:linear-gradient(145deg,#121827,#0A0E17);
+  cursor:pointer;
+  user-select:none;
+  transition:.2s;
+}
+.tab:hover{transform:translateY(-2px);border-color:var(--gold)}
+.tab.active{
   border-color:var(--gold);
-  box-shadow:0 15px 30px rgba(255,215,0,.15)
+  box-shadow:0 12px 26px rgba(255,215,0,.12)
 }
-.card i{font-size:32px;color:var(--gold);margin-bottom:10px}
-.card h3{font-size:16px;margin-bottom:6px;letter-spacing:.06em}
-.card p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.3}
+.tab .t1{font-size:12px;color:var(--silver);letter-spacing:.10em}
+.tab .t2{font-size:15px;font-weight:800;margin-top:2px}
 
-/* badge opzionale */
-.badge{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:var(--green);
-  font-size:10px;
-  padding:3px 6px;
-  border-radius:10px
+.container{padding:16px 16px 90px;max-width:980px;margin:0 auto}
+.grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:14px;
+}
+@media (max-width: 900px){
+  .grid{grid-template-columns:1fr}
+}
+.card{
+  background:linear-gradient(145deg,#121827,#0A0E17);
+  border:1px solid rgba(255,215,0,.15);
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 10px 20px rgba(0,0,0,.25);
+}
+.h{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:12px;
+}
+.h h2{font-size:16px;letter-spacing:.08em}
+.small{font-size:12px;color:rgba(255,255,255,.72);line-height:1.45}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(50,205,50,.35);
+  background:rgba(50,205,50,.12);
+  color:#d9ffe1;
+  padding:6px 10px;border-radius:999px;font-size:12px;
 }
 
-/* stato non collegato */
-.card.disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-.card.disabled:hover{
-  transform:none;
-  box-shadow:none;
-  border-color:rgba(255,215,0,.15);
-}
-
-/* =======================
-   FOOTER (solo estetica)
-======================= */
-.footer{
-  position:fixed;
-  bottom:0;left:0;
+.form{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width: 560px){.row{grid-template-columns:1fr}}
+.field label{display:block;font-size:12px;color:var(--silver);margin-bottom:6px}
+.field input,.field textarea,.field select{
   width:100%;
-  display:flex;
-  justify-content:space-around;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background:#0b1020;
+  color:#fff;
+  padding:11px 12px;
+  outline:none;
+}
+.field textarea{min-height:110px;resize:vertical}
+.hr{height:1px;background:rgba(255,255,255,.08);margin:14px 0}
+
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width: 560px){.kpis{grid-template-columns:1fr}}
+.kpi{
+  padding:12px;border-radius:16px;
+  border:1px solid rgba(255,215,0,.12);
+  background:rgba(255,255,255,.03);
+}
+.kpi .n{font-size:18px;font-weight:900}
+.kpi .l{font-size:12px;color:rgba(255,255,255,.72);margin-top:3px}
+
+.list{display:grid;gap:8px}
+.item{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.03);
+  padding:10px 12px;border-radius:14px;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+}
+.item b{display:block;font-size:13px}
+.item span{display:block;font-size:12px;color:rgba(255,255,255,.7);margin-top:2px;line-height:1.35}
+
+.toast{
+  position:fixed;left:50%;bottom:16px;transform:translateX(-50%);
+  background:rgba(18,24,39,.95);
+  border:1px solid rgba(255,215,0,.22);
+  padding:10px 12px;border-radius:14px;
+  display:none;gap:8px;align-items:center;
+  box-shadow:0 18px 35px rgba(0,0,0,.35);
+}
+.toast.show{display:flex}
+.toast i{color:var(--gold)}
+.footerbar{
+  position:fixed;left:0;bottom:0;width:100%;
   background:rgba(10,14,23,.95);
   border-top:1px solid rgba(255,215,0,.2);
-  padding:12px
+  padding:10px 12px;
+  display:flex;justify-content:center;
 }
-.footer button{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:12px;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer
-}
-.footer i{font-size:20px;color:var(--silver)}
-.footer .active i{color:var(--gold)}
+.footerbar .wrap{max-width:980px;width:100%;display:flex;gap:10px;justify-content:space-between;align-items:center}
 </style>
 </head>
-
 <body>
-
 <header class="header">
-  <h1 class="main-title">GESTIONALE</h1>
-  <p class="subtitle">Dashboard • 7 pilastri + 1 spazio futuro</p>
+  <div class="toprow">
+    <div class="brand"><span class="dot"></span>GESTIONALE • PROGRAMMI</div>
+    <div class="actions">
+      <a class="btn ghost" href="javascript:void(0)" id="btnCopy"><i class="fa-solid fa-link"></i>Link</a>
+      <a class="btn ghost" href="javascript:void(0)" id="btnExport"><i class="fa-solid fa-file-arrow-down"></i>Export</a>
+      <a class="btn danger" href="javascript:void(0)" id="btnReset"><i class="fa-solid fa-trash"></i>Reset</a>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab" data-tab="acquisire">
+      <div class="t1">PILASTRO 1</div>
+      <div class="t2"><i class="fa-solid fa-download"></i> ACQUISIRE</div>
+    </div>
+    <div class="tab" data-tab="promuovere">
+      <div class="t1">PILASTRO 2</div>
+      <div class="t2"><i class="fa-solid fa-megaphone"></i> PROMUOVERE</div>
+    </div>
+  </div>
 </header>
 
 <main class="container">
-  <section class="cards">
+  <section id="view-acquisire" class="view">
+    <div class="grid">
+      <div class="card">
+        <div class="h">
+          <h2>ACQUISIRE • Scheda Incarico</h2>
+          <span class="pill"><i class="fa-solid fa-circle-check"></i> salva & passa al 2)</span>
+        </div>
+        <p class="small">Compila i dati base. Salvataggio automatico. Poi apri “Promuovere”: troverai già la scheda pronta.</p>
 
-    <div class="card" data-key="acquisire">
-      <i class="fas fa-download"></i>
-      <h3>1) ACQUISIRE</h3>
-      <p>Senza incarichi, non esiste il lavoro.</p>
-      <span class="badge" title="Solo esempio">NEW</span>
+        <div class="hr"></div>
+
+        <form class="form" id="formAcq" autocomplete="off">
+          <div class="row">
+            <div class="field">
+              <label>Codice immobile</label>
+              <input name="codice" placeholder="Es. MI-2026-001">
+            </div>
+            <div class="field">
+              <label>Tipologia</label>
+              <select name="tipologia">
+                <option value="">Seleziona…</option>
+                <option>Appartamento</option>
+                <option>Villa</option>
+                <option>Ufficio</option>
+                <option>Negozio</option>
+                <option>Terreno</option>
+                <option>Altro</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Città</label>
+              <input name="citta" placeholder="Es. Milano">
+            </div>
+            <div class="field">
+              <label>Prezzo richiesto (€)</label>
+              <input name="prezzo" inputmode="decimal" placeholder="Es. 249000">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label>Nome proprietario</label>
+              <input name="proprietario" placeholder="Es. Mario Rossi">
+            </div>
+            <div class="field">
+              <label>Telefono / Email</label>
+              <input name="contatto" placeholder="Es. +39 … / email@">
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Punti di forza (USP)</label>
+            <textarea name="usp" placeholder="3-5 punti forti…"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Note operative</label>
+            <textarea name="note" placeholder="Vincoli, chiavi, disponibilità visite…"></textarea>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+            <button class="btn" type="button" id="btnGoPromo"><i class="fa-solid fa-arrow-right"></i>Vai a PROMUOVERE</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="h">
+          <h2>Stato</h2>
+          <span class="pill" id="pillState"><i class="fa-solid fa-floppy-disk"></i> pronto</span>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="n" id="kpiCodice">—</div>
+            <div class="l">codice</div>
+          </div>
+          <div class="kpi">
+            <div class="n" id="kpiCitta">—</div>
+            <div class="l">città</div>
+          </div>
+          <div class="kpi">
+            <div class="n" id="kpiPrezzo">—</div>
+            <div class="l">prezzo</div>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <div class="list" id="lastSaved"></div>
+      </div>
     </div>
+  </section>
 
-    <div class="card" data-key="promuovere">
-      <i class="fas fa-megaphone"></i>
-      <h3>2) PROMUOVERE</h3>
-      <p>La visibilità trasforma l’immobile in opportunità.</p>
+  <section id="view-promuovere" class="view" style="display:none">
+    <div class="grid">
+      <div class="card">
+        <div class="h">
+          <h2>PROMUOVERE • Piano Azione</h2>
+          <span class="pill"><i class="fa-solid fa-wand-magic-sparkles"></i> usa i dati del 1)</span>
+        </div>
+        <p class="small">Qui trovi già i dati dell’immobile. Genera checklist e messaggi pronti. Tutto rimane in locale (localStorage).</p>
+
+        <div class="hr"></div>
+
+        <div class="list" id="promoSummary"></div>
+
+        <div class="hr"></div>
+
+        <div class="form">
+          <div class="row">
+            <div class="field">
+              <label>Canale principale</label>
+              <select id="canale">
+                <option value="idealista">Portale (Idealista / Immobiliare)</option>
+                <option value="meta">Meta Ads (FB/IG)</option>
+                <option value="tiktok">TikTok</option>
+                <option value="newsletter">Newsletter</option>
+                <option value="vetrina">Vetrina / Cartello</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Obiettivo</label>
+              <select id="obiettivo">
+                <option value="contatti">Contatti</option>
+                <option value="visite">Visite</option>
+                <option value="offerte">Offerte</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+            <button class="btn" type="button" id="btnChecklist"><i class="fa-solid fa-list-check"></i>Checklist</button>
+            <button class="btn" type="button" id="btnCopyCopy"><i class="fa-solid fa-copy"></i>Copy</button>
+          </div>
+
+          <div class="field">
+            <label>Output</label>
+            <textarea id="output" placeholder="Qui comparirà checklist/copy…"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="h">
+          <h2>Bridge (Concert)</h2>
+          <span class="pill" id="bridgePill"><i class="fa-solid fa-link"></i> collegato</span>
+        </div>
+        <p class="small">Se aggiorni “Acquisire”, qui si aggiorna in tempo reale (al refresh) perché leggiamo la stessa scheda salvata.</p>
+
+        <div class="hr"></div>
+
+        <div class="list" id="bridgeLog"></div>
+
+        <div class="hr"></div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end">
+          <button class="btn ghost" type="button" id="btnGoAcq"><i class="fa-solid fa-arrow-left"></i>Torna ad ACQUISIRE</button>
+        </div>
+      </div>
     </div>
-
-    <div class="card" data-key="lead">
-      <i class="fas fa-funnel-dollar"></i>
-      <h3>3) LEAD</h3>
-      <p>Creare domanda reale.</p>
-    </div>
-
-    <div class="card" data-key="followup">
-      <i class="fas fa-comments"></i>
-      <h3>4) FOLLOW-UP</h3>
-      <p>Il valore si costruisce nel tempo.</p>
-    </div>
-
-    <div class="card" data-key="trattativa">
-      <i class="fas fa-scale-balanced"></i>
-      <h3>5) TRATTATIVA</h3>
-      <p>Trasformare interesse in accordo.</p>
-    </div>
-
-    <div class="card" data-key="fidelizzare">
-      <i class="fas fa-handshake"></i>
-      <h3>6) FIDELIZZARE</h3>
-      <p>Il business continua dopo la vendita.</p>
-    </div>
-
-    <div class="card" data-key="backoffice">
-      <i class="fas fa-briefcase"></i>
-      <h3>7) BACK OFFICE</h3>
-      <p>Senza controllo, non c’è crescita.</p>
-    </div>
-
-    <div class="card disabled" data-key="vuoto" title="Spazio futuro">
-      <i class="fas fa-plus"></i>
-      <h3>8) FUTURO</h3>
-      <p>Finestra vuota: la riempiamo dopo.</p>
-    </div>
-
   </section>
 </main>
 
-<footer class="footer">
-  <button class="active" type="button"><i class="fas fa-home"></i>Home</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-chart-bar"></i>Stats</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-tasks"></i>Task</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-cog"></i>Setup</button>
-</footer>
+<div class="toast" id="toast"><i class="fa-solid fa-circle-check"></i><span id="toastText">OK</span></div>
+
+<div class="footerbar">
+  <div class="wrap">
+    <a class="btn ghost" href="tabs.html"><i class="fa-solid fa-house"></i>Dashboard</a>
+    <div class="small" id="footInfo">—</div>
+  </div>
+</div>
 
 <script>
-/* =====================================================
-   CONFIG: URL PROGRAMMI ESTERNI (GitHub Pages)
-   - Quando un URL è vuoto, la card diventa "disabled"
-===================================================== */
-const PROGRAMMI = {
- acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
-  promuovere: "https://josephsocialmedia2-spec.github.io/promozione/",
-  lead: "https://josephsocialmedia2-spec.github.io/lead/",
-  followup: "",
-  trattativa: "",
-  fidelizzare: "",
-  backoffice: "",
-  vuoto: ""
-};
+const KEY = "GESTIONALE_ACQ_V1";
 
-function apriProgramma(key){
-  const url = PROGRAMMI[key];
-  if(!url){
-    alert("Programma non ancora collegato");
-    return;
-  }
-  window.open(url, "_blank", "noopener,noreferrer");
+function nowISO(){
+  const d = new Date();
+  return d.toISOString();
+}
+function money(v){
+  if(!v) return "—";
+  const n = Number(String(v).replace(/[^\d.]/g,""));
+  if(!Number.isFinite(n)) return String(v);
+  return n.toLocaleString("it-IT");
+}
+function toast(msg){
+  const t = document.getElementById("toast");
+  document.getElementById("toastText").textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window.__toastT);
+  window.__toastT = setTimeout(()=>t.classList.remove("show"), 1400);
 }
 
-// attacco click + stato
-document.querySelectorAll(".card").forEach(card => {
-  const key = card.getAttribute("data-key");
-  const url = PROGRAMMI[key];
+function getAcq(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function setAcq(obj){
+  localStorage.setItem(KEY, JSON.stringify(obj));
+}
 
-  // se non c'è url e non è la card "vuoto", la disabilito automaticamente
-  if(!url && key !== "vuoto"){
-    card.classList.add("disabled");
+function activeTabFromHash(){
+  const h = (location.hash || "").replace("#","").trim();
+  return (h === "promuovere") ? "promuovere" : "acquisire";
+}
+
+function setActive(tab){
+  document.querySelectorAll(".tab").forEach(el=>{
+    el.classList.toggle("active", el.dataset.tab === tab);
+  });
+  document.getElementById("view-acquisire").style.display = (tab === "acquisire") ? "" : "none";
+  document.getElementById("view-promuovere").style.display = (tab === "promuovere") ? "" : "none";
+  document.getElementById("footInfo").textContent = (tab === "acquisire")
+    ? "PILASTRO 1 • Compila e salva (auto)"
+    : "PILASTRO 2 • Usa la scheda del 1)";
+  if(tab === "promuovere") renderPromuovere();
+  if(tab === "acquisire") renderAcquisireSide();
+  location.hash = tab;
+}
+
+function renderAcquisireSide(){
+  const data = getAcq();
+  const k1 = document.getElementById("kpiCodice");
+  const k2 = document.getElementById("kpiCitta");
+  const k3 = document.getElementById("kpiPrezzo");
+  const list = document.getElementById("lastSaved");
+
+  if(!data){
+    k1.textContent = "—";
+    k2.textContent = "—";
+    k3.textContent = "—";
+    list.innerHTML = `<div class="item"><div><b>Nessuna scheda salvata</b><span>Compila il form: si salva da solo.</span></div></div>`;
+    return;
   }
 
-  card.addEventListener("click", () => {
-    if(card.classList.contains("disabled")) return;
-    apriProgramma(key);
-  });
-});
-</script>
+  k1.textContent = data.codice || "—";
+  k2.textContent = data.citta || "—";
+  k3.textContent = data.prezzo ? money(data.prezzo) : "—";
 
+  list.innerHTML = `
+    <div class="item"><div><b>${data.tipologia || "—"} • ${data.citta || "—"}</b><span>Codice: ${data.codice || "—"} • Prezzo: € ${money(data.prezzo)}</span></div><span>${new Date(data.updatedAt).toLocaleString("it-IT")}</span></div>
+    <div class="item"><div><b>Proprietario</b><span>${data.proprietario || "—"} • ${data.contatto || "—"}</span></div></div>
+    <div class="item"><div><b>Punti di forza</b><span>${(data.usp || "—").replace(/\n/g," • ")}</span></div></div>
+  `;
+}
+
+function fillFormFromData(){
+  const data = getAcq();
+  if(!data) return;
+  const f = document.getElementById("formAcq");
+  ["codice","tipologia","citta","prezzo","proprietario","contatto","usp","note"].forEach(k=>{
+    const el = f.elements[k];
+    if(!el) return;
+    el.value = data[k] ?? "";
+  });
+}
+
+function attachAutoSave(){
+  const f = document.getElementById("formAcq");
+  const handler = ()=>{
+    const obj = {
+      codice: f.elements["codice"].value.trim(),
+      tipologia: f.elements["tipologia"].value.trim(),
+      citta: f.elements["citta"].value.trim(),
+      prezzo: f.elements["prezzo"].value.trim(),
+      proprietario: f.elements["proprietario"].value.trim(),
+      contatto: f.elements["contatto"].value.trim(),
+      usp: f.elements["usp"].value.trim(),
+      note: f.elements["note"].value.trim(),
+      updatedAt: nowISO()
+    };
+    setAcq(obj);
+    renderAcquisireSide();
+  };
+  f.addEventListener("input", handler);
+}
+
+function renderPromuovere(){
+  const data = getAcq();
+  const sum = document.getElementById("promoSummary");
+  const log = document.getElementById("bridgeLog");
+
+  if(!data){
+    sum.innerHTML = `<div class="item"><div><b>Nessuna scheda trovata</b><span>Vai su ACQUISIRE e compila almeno codice/città/prezzo.</span></div></div>`;
+    log.innerHTML = `<div class="item"><div><b>Bridge vuoto</b><span>Niente da sincronizzare.</span></div></div>`;
+    return;
+  }
+
+  sum.innerHTML = `
+    <div class="item"><div><b>${data.tipologia || "Immobile"} • ${data.citta || "—"}</b><span>Codice: ${data.codice || "—"} • Prezzo: € ${money(data.prezzo)}</span></div><span>OK</span></div>
+    <div class="item"><div><b>USP</b><span>${(data.usp || "—").replace(/\n/g," • ")}</span></div></div>
+  `;
+  log.innerHTML = `
+    <div class="item"><div><b>Letto da localStorage</b><span>KEY: ${KEY}</span></div><span>${new Date(data.updatedAt).toLocaleString("it-IT")}</span></div>
+    <div class="item"><div><b>Proprietario</b><span>${data.proprietario || "—"} • ${data.contatto || "—"}</span></div></div>
+    <div class="item"><div><b>Note</b><span>${(data.note || "—").replace(/\n/g," • ")}</span></div></div>
+  `;
+}
+
+function buildChecklist(data, canale, obiettivo){
+  const base = [
+    "Foto professionali + verticali (Reels/TikTok)",
+    "Planimetria pulita + misure",
+    "Titolo con USP + quartiere",
+    "Descrizione: problema→soluzione→USP→CTA",
+    "Pricing: confronto + range + motivazione",
+    "CTA: 'Scrivimi su WhatsApp' + fascia oraria"
+  ];
+  const byCanale = {
+    idealista: ["Pubblica su 2 portali", "Verifica mappa/indirizzo", "Refresh annuncio 48h", "A/B test titolo"],
+    meta: ["Creatività 4 varianti", "Target: raggio + interessi", "Budget test 3 giorni", "Lead form + WhatsApp"],
+    tiktok: ["Hook 2s", "Tour 20-35s", "Sottotitoli + CTA", "Pubblica 1/d per 5gg"],
+    newsletter: ["Segmenta lista", "Oggetto con prezzo/città", "3 foto + USP", "Link prenotazione visita"],
+    vetrina: ["Cartello con QR", "Vetrina 3 foto", "Scheda stampabile", "Call tracking"]
+  };
+  const byObj = {
+    contatti: ["Risposta entro 5 min", "Script qualificazione", "Tag contatti caldo/tiepido/freddo"],
+    visite: ["Calendario visite", "Open house (se possibile)", "Follow-up 24h dopo visita"],
+    offerte: ["Documento comparativo", "Urgenza (scadenza)", "Gestione obiezioni prezzo"]
+  };
+  const lines = [
+    `CHECKLIST • ${data.codice || "—"} • ${data.citta || "—"}`,
+    `Canale: ${canale} • Obiettivo: ${obiettivo}`,
+    "",
+    ...base.map(x=>`- ${x}`),
+    "",
+    ...(byCanale[canale]||[]).map(x=>`- ${x}`),
+    "",
+    ...(byObj[obiettivo]||[]).map(x=>`- ${x}`)
+  ];
+  return lines.join("\n");
+}
+
+function buildCopy(data, canale){
+  const titolo = `${data.tipologia || "Immobile"} a ${data.citta || "—"} • € ${money(data.prezzo)}`;
+  const usp = (data.usp || "").split("\n").map(s=>s.trim()).filter(Boolean).slice(0,4);
+  const uspLine = usp.length ? usp.map(u=>`• ${u}`).join("\n") : "• (aggiungi USP in ACQUISIRE)";
+  const cta = "Scrivimi “INFO” per foto, planimetria e visita.";
+  const tags = "#casa #immobiliare #appartamento #vendita #investimento";
+
+  if(canale === "tiktok"){
+    return [
+      "HOOK: 'Questa casa sta per sparire dal mercato…'",
+      titolo,
+      "",
+      uspLine,
+      "",
+      "CTA (on screen): INFO su WhatsApp",
+      tags
+    ].join("\n");
+  }
+  if(canale === "meta"){
+    return [
+      titolo,
+      "",
+      uspLine,
+      "",
+      cta,
+      tags
+    ].join("\n");
+  }
+  return [
+    titolo,
+    "",
+    uspLine,
+    "",
+    cta
+  ].join("\n");
+}
+
+document.querySelectorAll(".tab").forEach(el=>{
+  el.addEventListener("click", ()=> setActive(el.dataset.tab));
+});
+
+document.getElementById("btnGoPromo").addEventListener("click", ()=> setActive("promuovere"));
+document.getElementById("btnGoAcq").addEventListener("click", ()=> setActive("acquisire"));
+
+document.getElementById("btnChecklist").addEventListener("click", ()=>{
+  const data = getAcq();
+  if(!data){ toast("Compila ACQUISIRE"); return; }
+  const canale = document.getElementById("canale").value;
+  const obiettivo = document.getElementById("obiettivo").value;
+  document.getElementById("output").value = buildChecklist(data, canale, obiettivo);
+  toast("Checklist pronta");
+});
+document.getElementById("btnCopyCopy").addEventListener("click", ()=>{
+  const data = getAcq();
+  if(!data){ toast("Compila ACQUISIRE"); return; }
+  const canale = document.getElementById("canale").value;
+  document.getElementById("output").value = buildCopy(data, canale);
+  toast("Copy pronto");
+});
+
+document.getElementById("btnCopy").addEventListener("click", async ()=>{
+  try{
+    await navigator.clipboard.writeText(location.href);
+    toast("Link copiato");
+  }catch(e){
+    toast("Copia non disponibile");
+  }
+});
+
+document.getElementById("btnExport").addEventListener("click", ()=>{
+  const data = getAcq();
+  const payload = {
+    exportedAt: nowISO(),
+    acquisire: data,
+    promuovere: {
+      canale: document.getElementById("canale").value,
+      obiettivo: document.getElementById("obiettivo").value,
+      output: document.getElementById("output").value
+    }
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (data && data.codice ? data.codice : "gestionable") + "_export.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast("Export creato");
+});
+
+document.getElementById("btnReset").addEventListener("click", ()=>{
+  localStorage.removeItem(KEY);
+  document.getElementById("formAcq").reset();
+  document.getElementById("output").value = "";
+  renderAcquisireSide();
+  renderPromuovere();
+  toast("Reset OK");
+});
+
+fillFormFromData();
+attachAutoSave();
+renderAcquisireSide();
+setActive(activeTabFromHash());
+
+window.addEventListener("hashchange", ()=> setActive(activeTabFromHash()));
+</script>
 </body>
 </html>
