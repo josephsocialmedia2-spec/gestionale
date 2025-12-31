@@ -3,31 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestionale – Dashboard</title>
+<title>Dashboard 7 Aree</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* =======================
-   VARIABILI
-======================= */
 :root{
   --gold:#FFD700;
   --silver:#C0C0C0;
+  --blue:#1E90FF;
   --green:#32CD32;
+  --purple:#8a2be2;
   --dark:#0A0E17;
   --card:#121827;
 }
 
-/* =======================
-   RESET
-======================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
 body{background:var(--dark);color:#fff;min-height:100vh}
 
-/* =======================
-   HEADER
-======================= */
+/* HEADER */
 .header{
   padding:20px;
   text-align:center;
@@ -42,19 +36,17 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 }
 .subtitle{font-size:14px;color:var(--silver)}
 
-/* =======================
-   GRID CARTE
-======================= */
+/* GRID */
 .container{padding:15px 15px 90px}
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
   gap:15px
 }
 .card{
   position:relative;
   padding:20px;
-  min-height:150px;
+  min-height:140px;
   border-radius:16px;
   text-decoration:none;
   color:#fff;
@@ -63,7 +55,6 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border:1px solid rgba(255,215,0,.15);
   transition:.3s;
   cursor:pointer;
-  user-select:none;
 }
 .card:hover{
   transform:translateY(-8px) scale(1.03);
@@ -71,10 +62,8 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   box-shadow:0 15px 30px rgba(255,215,0,.15)
 }
 .card i{font-size:32px;color:var(--gold);margin-bottom:10px}
-.card h3{font-size:16px;margin-bottom:6px;letter-spacing:.06em}
-.card p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.3}
-
-/* badge */
+.card h3{font-size:18px;margin-bottom:5px}
+.card p{font-size:12px;color:rgba(255,255,255,.7)}
 .badge{
   position:absolute;
   top:10px;
@@ -85,34 +74,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border-radius:10px
 }
 
-/* non collegato */
-.card.disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-.card.disabled:hover{
-  transform:none;
-  box-shadow:none;
-  border-color:rgba(255,215,0,.15);
-}
-
-/* icone multiple */
-.icon-stack{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:10px;
-}
-.icon-stack i{
-  font-size:32px;
-  color:var(--gold);
-  pointer-events:none;
-}
-
-/* =======================
-   FOOTER
-======================= */
+/* FOOTER */
 .footer{
   position:fixed;
   bottom:0;left:0;
@@ -141,64 +103,52 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 <body>
 
 <header class="header">
-  <h1 class="main-title">GESTIONALE</h1>
-  <p class="subtitle">Dashboard • metodo operativo</p>
+  <h1 class="main-title">DASHBOARD 7 AREE</h1>
+  <p class="subtitle">Gestisci il tuo business in modo strategico</p>
 </header>
 
 <main class="container">
   <section class="cards">
 
-    <div class="card" data-key="acquisire">
+    <div class="card" onclick="apri('acquisizione')">
       <i class="fas fa-download"></i>
-      <h3>1) ACQUISIRE</h3>
-      <p>Senza incarichi, non esiste il lavoro.</p>
+      <h3>ACQUISIZIONE</h3>
+      <p>Nuovi clienti</p>
+      <span class="badge">3</span>
+    </div>
+
+    <div class="card" onclick="apri('business')">
+      <i class="fas fa-briefcase"></i>
+      <h3>BUSINESS</h3>
+      <p>Gestione</p>
+    </div>
+
+    <div class="card" onclick="apri('lead')">
+      <i class="fas fa-funnel-dollar"></i>
+      <h3>LEAD</h3>
+      <p>Pipeline</p>
+      <span class="badge">12</span>
+    </div>
+
+    <!-- ✅ NUOVA CARD: FOLLOW-UP -->
+    <div class="card" onclick="apri('followup')">
+      <i class="fas fa-comments"></i>
+      <h3>FOLLOW-UP</h3>
+      <p>Richiami & metodo</p>
       <span class="badge">NEW</span>
     </div>
 
-    <div class="card" data-key="promuovere">
-      <i class="fas fa-bullhorn"></i>
-      <h3>2) PROMUOVERE</h3>
-      <p>La visibilità crea opportunità.</p>
-    </div>
-
-    <div class="card" data-key="lead">
-      <i class="fas fa-funnel-dollar"></i>
-      <h3>3) LEAD</h3>
-      <p>Domanda reale.</p>
-    </div>
-
-    <div class="card" data-key="metodo">
-      <div class="icon-stack" aria-label="Sacrificio e Trofeo">
-        <i class="fas fa-medal"></i>
-        <i class="fas fa-fire"></i>
-      </div>
-      <h3>4) METODO</h3>
-      <p>Sacrificio • costanza • risultato.</p>
-      <span class="badge">FOLLOW-UP</span>
-    </div>
-
-    <div class="card" data-key="trattativa">
-      <i class="fas fa-scale-balanced"></i>
-      <h3>5) TRATTATIVA</h3>
-      <p>Trasformare interesse in accordo.</p>
-    </div>
-
-    <div class="card" data-key="fidelizzare">
+    <div class="card" onclick="apri('postvendita')">
       <i class="fas fa-handshake"></i>
-      <h3>6) FIDELIZZARE</h3>
-      <p>Il business continua.</p>
+      <h3>POST-VENDITA</h3>
+      <p>Fidelizzazione</p>
     </div>
 
-    <div class="card" data-key="backoffice">
-      <i class="fas fa-briefcase"></i>
-      <h3>7) BACK OFFICE</h3>
-      <p>Controllo e crescita.</p>
-    </div>
-
-    <div class="card disabled" data-key="vuoto">
-      <i class="fas fa-plus"></i>
-      <h3>8) FUTURO</h3>
-      <p>Spazio libero.</p>
+    <div class="card" onclick="apri('promozione')">
+      <i class="fas fa-megaphone"></i>
+      <h3>PROMOZIONE</h3>
+      <p>Marketing</p>
+      <span class="badge">5</span>
     </div>
 
   </section>
@@ -213,38 +163,27 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 </footer>
 
 <script>
-/* =======================
-   PROGRAMMI
-======================= */
+/* =====================================================
+   CONFIGURAZIONE PROGRAMMI ESTERNI
+   👉 INCOLLA QUI GLI URL GITHUB PAGES
+===================================================== */
 const PROGRAMMI = {
-  acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
-  promuovere: "https://josephsocialmedia2-spec.github.io/promozione/",
-  lead: "https://josephsocialmedia2-spec.github.io/lead/",
-  metodo: "https://josephsocialmedia2-spec.github.io/gestionale/followup/",
-  trattativa: "",
-  fidelizzare: "",
-  backoffice: "",
-  vuoto: ""
+  acquisizione: "https://josephsocialmedia2-spec.github.io/acquisizione/",
+  business: "",
+  lead: "",
+  followup: "https://josephsocialmedia2-spec.github.io/gestionale/followup/",
+  postvendita: "",
+  promozione: ""
 };
 
-function apriProgramma(key){
-  const url = PROGRAMMI[key];
+function apri(nome){
+  const url = PROGRAMMI[nome];
   if(!url){
     alert("Programma non ancora collegato");
     return;
   }
-  window.open(url, "_blank", "noopener,noreferrer");
+  window.open(url, "_blank");
 }
-
-document.querySelectorAll(".card").forEach(card => {
-  const key = card.dataset.key;
-  const url = PROGRAMMI[key];
-  if(!url && key !== "vuoto") card.classList.add("disabled");
-  card.addEventListener("click", () => {
-    if(card.classList.contains("disabled")) return;
-    apriProgramma(key);
-  });
-});
 </script>
 
 </body>
