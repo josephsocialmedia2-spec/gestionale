@@ -69,6 +69,29 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   padding:3px 6px;
   border-radius:10px
 }
+
+/* FOOTER */
+.footer{
+  position:fixed;
+  bottom:0;left:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  background:rgba(10,14,23,.95);
+  border-top:1px solid rgba(255,215,0,.2);
+  padding:12px
+}
+.footer button{
+  background:none;
+  border:none;
+  color:#fff;
+  font-size:12px;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.footer i{font-size:20px;color:var(--silver)}
+.footer .active i{color:var(--gold)}
 </style>
 </head>
 
@@ -136,7 +159,7 @@ function apri(nome){
     alert("Programma non ancora collegato");
     return;
   }
-  window.open(url,"_blank","noopener,noreferrer");
+  window.open(url,"_blank");
 }
 </script>
 
