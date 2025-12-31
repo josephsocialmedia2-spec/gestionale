@@ -197,16 +197,18 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 <script>
 /* =====================================================
    CONFIG: URL PROGRAMMI ESTERNI (GitHub Pages)
-   - Quando un URL è vuoto, la card diventa "disabled"
+   - Dove mancava il link, ora apre Google (come richiesto)
 ===================================================== */
+const GOOGLE = "https://www.google.com/";
+
 const PROGRAMMI = {
- acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
+  acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
   promuovere: "https://josephsocialmedia2-spec.github.io/promozione/",
   lead: "https://josephsocialmedia2-spec.github.io/lead/",
-  followup: "",
-  trattativa: "",
-  fidelizzare: "",
-  backoffice: "",
+  followup: GOOGLE,
+  trattativa: GOOGLE,
+  fidelizzare: GOOGLE,
+  backoffice: GOOGLE,
   vuoto: ""
 };
 
