@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Gestionale</title>
+<title>Gestionale – Dashboard</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+/* =======================
+   VARIABILI
+======================= */
 :root{
   --gold:#FFD700;
   --silver:#C0C0C0;
@@ -16,10 +19,15 @@
   --card:#121827;
 }
 
+/* =======================
+   RESET
+======================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
 body{background:var(--dark);color:#fff;min-height:100vh}
 
-/* HEADER */
+/* =======================
+   HEADER
+======================= */
 .header{
   padding:20px;
   text-align:center;
@@ -34,23 +42,28 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 }
 .subtitle{font-size:14px;color:var(--silver)}
 
-/* GRID */
+/* =======================
+   GRID CARTE
+======================= */
 .container{padding:15px 15px 90px}
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
   gap:15px
 }
 .card{
   position:relative;
   padding:20px;
-  min-height:140px;
+  min-height:150px;
   border-radius:16px;
+  text-decoration:none;
+  color:#fff;
   text-align:center;
   background:linear-gradient(145deg,#121827,#0A0E17);
   border:1px solid rgba(255,215,0,.15);
   transition:.3s;
   cursor:pointer;
+  user-select:none;
 }
 .card:hover{
   transform:translateY(-8px) scale(1.03);
@@ -59,7 +72,9 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 }
 .card i{font-size:32px;color:var(--gold);margin-bottom:10px}
 .card h3{font-size:16px;margin-bottom:6px;letter-spacing:.06em}
-.card p{font-size:12px;color:rgba(255,255,255,.7)}
+.card p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.3}
+
+/* badge opzionale */
 .badge{
   position:absolute;
   top:10px;
@@ -70,7 +85,34 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border-radius:10px
 }
 
-/* FOOTER */
+/* stato non collegato */
+.card.disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.card.disabled:hover{
+  transform:none;
+  box-shadow:none;
+  border-color:rgba(255,215,0,.15);
+}
+
+/* iconcine multiple (per FOLLOW-UP) */
+.icon-stack{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.icon-stack i{
+  font-size:32px;
+  color:var(--gold);
+  margin-bottom:0; /* override */
+}
+
+/* =======================
+   FOOTER (solo estetica)
+======================= */
 .footer{
   position:fixed;
   bottom:0;left:0;
@@ -89,6 +131,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   display:flex;
   flex-direction:column;
   gap:5px;
+  cursor:pointer
 }
 .footer i{font-size:20px;color:var(--silver)}
 .footer .active i{color:var(--gold)}
@@ -99,68 +142,117 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 
 <header class="header">
   <h1 class="main-title">GESTIONALE</h1>
-  <p class="subtitle">Metodo operativo • dalla disciplina al risultato</p>
+  <p class="subtitle">Dashboard • 7 pilastri + 1 spazio futuro</p>
 </header>
 
 <main class="container">
-<section class="cards">
+  <section class="cards">
 
-  <!-- ACQUISIZIONE -->
-  <div class="card" onclick="apri('acquisizione')">
-    <i class="fas fa-download"></i>
-    <h3>ACQUISIZIONE</h3>
-    <p>Base del sistema</p>
-  </div>
+    <div class="card" data-key="acquisire">
+      <i class="fas fa-download"></i>
+      <h3>1) ACQUISIRE</h3>
+      <p>Senza incarichi, non esiste il lavoro.</p>
+      <span class="badge" title="Solo esempio">NEW</span>
+    </div>
 
-  <!-- PROMOZIONE -->
-  <div class="card" onclick="apri('promozione')">
-    <i class="fas fa-bullhorn"></i>
-    <h3>PROMOZIONE</h3>
-    <p>Visibilità & marketing</p>
-  </div>
+    <div class="card" data-key="promuovere">
+      <!-- ✅ icona più “promozione” -->
+      <i class="fas fa-bullhorn"></i>
+      <h3>2) PROMUOVERE</h3>
+      <p>La visibilità trasforma l’immobile in opportunità.</p>
+    </div>
 
-  <!-- LEAD -->
-  <div class="card" onclick="apri('lead')">
-    <i class="fas fa-funnel-dollar"></i>
-    <h3>LEAD</h3>
-    <p>Domanda reale</p>
-  </div>
+    <div class="card" data-key="lead">
+      <i class="fas fa-funnel-dollar"></i>
+      <h3>3) LEAD</h3>
+      <p>Creare domanda reale.</p>
+    </div>
 
-  <!-- METODO / FOLLOW-UP -->
-  <div class="card" onclick="apri('metodo')">
-    <i class="fas fa-medal"></i>
-    <h3>METODO</h3>
-    <p>Sacrificio • costanza • risultato</p>
-    <span class="badge">FOLLOW-UP</span>
-  </div>
+    <div class="card" data-key="followup">
+      <!-- ✅ sacrificio + trofeo: medaglia + fuoco -->
+      <div class="icon-stack" aria-label="Sacrificio e Trofeo">
+        <i class="fas fa-medal"></i>
+        <i class="fas fa-fire"></i>
+      </div>
+      <h3>4) FOLLOW-UP</h3>
+      <p>Il valore si costruisce nel tempo.</p>
+    </div>
 
-</section>
+    <div class="card" data-key="trattativa">
+      <i class="fas fa-scale-balanced"></i>
+      <h3>5) TRATTATIVA</h3>
+      <p>Trasformare interesse in accordo.</p>
+    </div>
+
+    <div class="card" data-key="fidelizzare">
+      <i class="fas fa-handshake"></i>
+      <h3>6) FIDELIZZARE</h3>
+      <p>Il business continua dopo la vendita.</p>
+    </div>
+
+    <div class="card" data-key="backoffice">
+      <i class="fas fa-briefcase"></i>
+      <h3>7) BACK OFFICE</h3>
+      <p>Senza controllo, non c’è crescita.</p>
+    </div>
+
+    <div class="card disabled" data-key="vuoto" title="Spazio futuro">
+      <i class="fas fa-plus"></i>
+      <h3>8) FUTURO</h3>
+      <p>Finestra vuota: la riempiamo dopo.</p>
+    </div>
+
+  </section>
 </main>
 
 <footer class="footer">
-  <button class="active"><i class="fas fa-home"></i>Home</button>
-  <button><i class="fas fa-chart-bar"></i>Stats</button>
-  <button><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
-  <button><i class="fas fa-tasks"></i>Task</button>
-  <button><i class="fas fa-cog"></i>Setup</button>
+  <button class="active" type="button"><i class="fas fa-home"></i>Home</button>
+  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-chart-bar"></i>Stats</button>
+  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
+  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-tasks"></i>Task</button>
+  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-cog"></i>Setup</button>
 </footer>
 
 <script>
+/* =====================================================
+   CONFIG: URL PROGRAMMI ESTERNI (GitHub Pages)
+   - Quando un URL è vuoto, la card diventa "disabled"
+===================================================== */
 const PROGRAMMI = {
-  acquisizione: "https://josephsocialmedia2-spec.github.io/acquisizione/",
-  promozione: "https://josephsocialmedia2-spec.github.io/promozione/",
+  acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
+  promuovere: "https://josephsocialmedia2-spec.github.io/promozione/",
   lead: "https://josephsocialmedia2-spec.github.io/lead/",
-  metodo: "https://josephsocialmedia2-spec.github.io/gestionale/followup/"
+  followup: "https://josephsocialmedia2-spec.github.io/gestionale/followup/",
+  trattativa: "",
+  fidelizzare: "",
+  backoffice: "",
+  vuoto: ""
 };
 
-function apri(nome){
-  const url = PROGRAMMI[nome];
+function apriProgramma(key){
+  const url = PROGRAMMI[key];
   if(!url){
     alert("Programma non ancora collegato");
     return;
   }
-  window.open(url,"_blank");
+  window.open(url, "_blank", "noopener,noreferrer");
 }
+
+// attacco click + stato
+document.querySelectorAll(".card").forEach(card => {
+  const key = card.getAttribute("data-key");
+  const url = PROGRAMMI[key];
+
+  // se non c'è url e non è la card "vuoto", la disabilito automaticamente
+  if(!url && key !== "vuoto"){
+    card.classList.add("disabled");
+  }
+
+  card.addEventListener("click", () => {
+    if(card.classList.contains("disabled")) return;
+    apriProgramma(key);
+  });
+});
 </script>
 
 </body>
