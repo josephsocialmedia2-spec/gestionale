@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard 7 Aree</title>
+<title>Dashboard Gestionale</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -11,9 +11,7 @@
 :root{
   --gold:#FFD700;
   --silver:#C0C0C0;
-  --blue:#1E90FF;
   --green:#32CD32;
-  --purple:#8a2be2;
   --dark:#0A0E17;
   --card:#121827;
 }
@@ -48,8 +46,6 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   padding:20px;
   min-height:140px;
   border-radius:16px;
-  text-decoration:none;
-  color:#fff;
   text-align:center;
   background:linear-gradient(145deg,#121827,#0A0E17);
   border:1px solid rgba(255,215,0,.15);
@@ -62,7 +58,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   box-shadow:0 15px 30px rgba(255,215,0,.15)
 }
 .card i{font-size:32px;color:var(--gold);margin-bottom:10px}
-.card h3{font-size:18px;margin-bottom:5px}
+.card h3{font-size:16px;margin-bottom:6px;letter-spacing:.06em}
 .card p{font-size:12px;color:rgba(255,255,255,.7)}
 .badge{
   position:absolute;
@@ -93,7 +89,6 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   display:flex;
   flex-direction:column;
   gap:5px;
-  cursor:pointer
 }
 .footer i{font-size:20px;color:var(--silver)}
 .footer .active i{color:var(--gold)}
@@ -103,55 +98,43 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 <body>
 
 <header class="header">
-  <h1 class="main-title">DASHBOARD 7 AREE</h1>
-  <p class="subtitle">Gestisci il tuo business in modo strategico</p>
+  <h1 class="main-title">GESTIONALE</h1>
+  <p class="subtitle">Metodo operativo • dalla disciplina al risultato</p>
 </header>
 
 <main class="container">
-  <section class="cards">
+<section class="cards">
 
-    <div class="card" onclick="apri('acquisizione')">
-      <i class="fas fa-download"></i>
-      <h3>ACQUISIZIONE</h3>
-      <p>Nuovi clienti</p>
-      <span class="badge">3</span>
-    </div>
+  <!-- ACQUISIZIONE -->
+  <div class="card" onclick="apri('acquisizione')">
+    <i class="fas fa-download"></i>
+    <h3>ACQUISIZIONE</h3>
+    <p>Base del sistema</p>
+  </div>
 
-    <div class="card" onclick="apri('business')">
-      <i class="fas fa-briefcase"></i>
-      <h3>BUSINESS</h3>
-      <p>Gestione</p>
-    </div>
+  <!-- PROMOZIONE -->
+  <div class="card" onclick="apri('promozione')">
+    <i class="fas fa-bullhorn"></i>
+    <h3>PROMOZIONE</h3>
+    <p>Visibilità & marketing</p>
+  </div>
 
-    <div class="card" onclick="apri('lead')">
-      <i class="fas fa-funnel-dollar"></i>
-      <h3>LEAD</h3>
-      <p>Pipeline</p>
-      <span class="badge">12</span>
-    </div>
+  <!-- LEAD -->
+  <div class="card" onclick="apri('lead')">
+    <i class="fas fa-funnel-dollar"></i>
+    <h3>LEAD</h3>
+    <p>Domanda reale</p>
+  </div>
 
-    <!-- ✅ NUOVA CARD: FOLLOW-UP -->
-    <div class="card" onclick="apri('followup')">
-      <i class="fas fa-comments"></i>
-      <h3>FOLLOW-UP</h3>
-      <p>Richiami & metodo</p>
-      <span class="badge">NEW</span>
-    </div>
+  <!-- METODO / FOLLOW-UP -->
+  <div class="card" onclick="apri('metodo')">
+    <i class="fas fa-medal"></i>
+    <h3>METODO</h3>
+    <p>Sacrificio • costanza • risultato</p>
+    <span class="badge">FOLLOW-UP</span>
+  </div>
 
-    <div class="card" onclick="apri('postvendita')">
-      <i class="fas fa-handshake"></i>
-      <h3>POST-VENDITA</h3>
-      <p>Fidelizzazione</p>
-    </div>
-
-    <div class="card" onclick="apri('promozione')">
-      <i class="fas fa-megaphone"></i>
-      <h3>PROMOZIONE</h3>
-      <p>Marketing</p>
-      <span class="badge">5</span>
-    </div>
-
-  </section>
+</section>
 </main>
 
 <footer class="footer">
@@ -163,17 +146,11 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 </footer>
 
 <script>
-/* =====================================================
-   CONFIGURAZIONE PROGRAMMI ESTERNI
-   👉 INCOLLA QUI GLI URL GITHUB PAGES
-===================================================== */
 const PROGRAMMI = {
   acquisizione: "https://josephsocialmedia2-spec.github.io/acquisizione/",
-  business: "",
-  lead: "",
-  followup: "https://josephsocialmedia2-spec.github.io/gestionale/followup/",
-  postvendita: "",
-  promozione: ""
+  promozione: "https://josephsocialmedia2-spec.github.io/promozione/",
+  lead: "https://josephsocialmedia2-spec.github.io/lead/",
+  metodo: "https://josephsocialmedia2-spec.github.io/gestionale/followup/"
 };
 
 function apri(nome){
@@ -182,7 +159,7 @@ function apri(nome){
     alert("Programma non ancora collegato");
     return;
   }
-  window.open(url, "_blank");
+  window.open(url,"_blank");
 }
 </script>
 
