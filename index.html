@@ -96,20 +96,6 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border-color:rgba(255,215,0,.15);
 }
 
-/* iconcine multiple (per FOLLOW-UP) */
-.icon-stack{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  margin-bottom:10px;
-}
-.icon-stack i{
-  font-size:32px;
-  color:var(--gold);
-  margin-bottom:0; /* override */
-}
-
 /* =======================
    FOOTER (solo estetica)
 ======================= */
@@ -156,8 +142,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
     </div>
 
     <div class="card" data-key="promuovere">
-      <!-- ✅ icona più “promozione” -->
-      <i class="fas fa-bullhorn"></i>
+      <i class="fas fa-megaphone"></i>
       <h3>2) PROMUOVERE</h3>
       <p>La visibilità trasforma l’immobile in opportunità.</p>
     </div>
@@ -169,11 +154,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
     </div>
 
     <div class="card" data-key="followup">
-      <!-- ✅ sacrificio + trofeo: medaglia + fuoco -->
-      <div class="icon-stack" aria-label="Sacrificio e Trofeo">
-        <i class="fas fa-medal"></i>
-        <i class="fas fa-fire"></i>
-      </div>
+      <i class="fas fa-comments"></i>
       <h3>4) FOLLOW-UP</h3>
       <p>Il valore si costruisce nel tempo.</p>
     </div>
@@ -219,10 +200,10 @@ body{background:var(--dark);color:#fff;min-height:100vh}
    - Quando un URL è vuoto, la card diventa "disabled"
 ===================================================== */
 const PROGRAMMI = {
-  acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
+ acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
   promuovere: "https://josephsocialmedia2-spec.github.io/promozione/",
   lead: "https://josephsocialmedia2-spec.github.io/lead/",
-  followup: "https://josephsocialmedia2-spec.github.io/gestionale/followup/",
+  followup: "",
   trattativa: "",
   fidelizzare: "",
   backoffice: "",
