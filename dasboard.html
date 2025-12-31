@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dashboard Gestionale</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -49,26 +49,15 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   text-align:center;
   background:linear-gradient(145deg,#121827,#0A0E17);
   border:1px solid rgba(255,215,0,.15);
-  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  transition:.3s;
   cursor:pointer;
-  user-select:none;
-  outline:none;
 }
 .card:hover{
   transform:translateY(-8px) scale(1.03);
   border-color:var(--gold);
   box-shadow:0 15px 30px rgba(255,215,0,.15)
 }
-.card:active{
-  transform:translateY(-4px) scale(1.01);
-}
-.card:focus-visible{
-  border-color:var(--gold);
-  box-shadow:0 0 0 3px rgba(255,215,0,.18), 0 15px 30px rgba(255,215,0,.12);
-}
-
-.card i{font-size:32px;color:var(--gold);margin-bottom:10px;transition:transform .25s ease}
-.card:hover i{transform:scale(1.08)}
+.card i{font-size:32px;color:var(--gold);margin-bottom:10px}
 .card h3{font-size:16px;margin-bottom:6px;letter-spacing:.06em}
 .card p{font-size:12px;color:rgba(255,255,255,.7)}
 .badge{
@@ -100,13 +89,6 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   display:flex;
   flex-direction:column;
   gap:5px;
-  cursor:pointer;
-  padding:6px 10px;
-  border-radius:12px;
-}
-.footer button:focus-visible{
-  outline:2px solid rgba(255,215,0,.5);
-  outline-offset:2px;
 }
 .footer i{font-size:20px;color:var(--silver)}
 .footer .active i{color:var(--gold)}
@@ -121,42 +103,46 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 </header>
 
 <main class="container">
-  <section class="cards" id="cards">
+<section class="cards">
 
-    <div class="card" data-programma="acquisizione" role="button" tabindex="0" aria-label="Apri Acquisizione">
-      <i class="fas fa-download"></i>
-      <h3>ACQUISIZIONE</h3>
-      <p>Base del sistema</p>
-    </div>
+  <!-- ACQUISIZIONE -->
+  <div class="card" onclick="apri('acquisizione')">
+    <i class="fas fa-download"></i>
+    <h3>ACQUISIZIONE</h3>
+    <p>Base del sistema</p>
+  </div>
 
-    <div class="card" data-programma="promozione" role="button" tabindex="0" aria-label="Apri Promozione">
-      <i class="fas fa-bullhorn"></i>
-      <h3>PROMOZIONE</h3>
-      <p>Visibilità & marketing</p>
-    </div>
+  <!-- PROMOZIONE -->
+  <div class="card" onclick="apri('promozione')">
+    <i class="fas fa-bullhorn"></i>
+    <h3>PROMOZIONE</h3>
+    <p>Visibilità & marketing</p>
+  </div>
 
-    <div class="card" data-programma="lead" role="button" tabindex="0" aria-label="Apri Lead">
-      <i class="fas fa-funnel-dollar"></i>
-      <h3>LEAD</h3>
-      <p>Domanda reale</p>
-    </div>
+  <!-- LEAD -->
+  <div class="card" onclick="apri('lead')">
+    <i class="fas fa-funnel-dollar"></i>
+    <h3>LEAD</h3>
+    <p>Domanda reale</p>
+  </div>
 
-    <div class="card" data-programma="metodo" role="button" tabindex="0" aria-label="Apri Metodo Follow-up">
-      <i class="fas fa-medal"></i>
-      <h3>METODO</h3>
-      <p>Sacrificio • costanza • risultato</p>
-      <span class="badge">FOLLOW-UP</span>
-    </div>
+  <!-- METODO / FOLLOW-UP -->
+  <div class="card" onclick="apri('metodo')">
+    <i class="fas fa-medal"></i>
+    <h3>METODO</h3>
+    <p>Sacrificio • costanza • risultato</p>
+    <span class="badge">FOLLOW-UP</span>
+  </div>
 
-  </section>
+</section>
 </main>
 
-<footer class="footer" id="footer">
-  <button class="active" data-tab="home"><i class="fas fa-home"></i>Home</button>
-  <button data-tab="stats"><i class="fas fa-chart-bar"></i>Stats</button>
-  <button data-tab="nuovo"><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
-  <button data-tab="task"><i class="fas fa-tasks"></i>Task</button>
-  <button data-tab="setup"><i class="fas fa-cog"></i>Setup</button>
+<footer class="footer">
+  <button class="active"><i class="fas fa-home"></i>Home</button>
+  <button><i class="fas fa-chart-bar"></i>Stats</button>
+  <button><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
+  <button><i class="fas fa-tasks"></i>Task</button>
+  <button><i class="fas fa-cog"></i>Setup</button>
 </footer>
 
 <script>
@@ -173,34 +159,8 @@ function apri(nome){
     alert("Programma non ancora collegato");
     return;
   }
-  // Sicuro con _blank (niente accesso a window.opener)
-  window.open(url, "_blank", "noopener,noreferrer");
+  window.open(url,"_blank");
 }
-
-// Click sulle card (delegation)
-document.getElementById("cards").addEventListener("click", (e) => {
-  const card = e.target.closest(".card");
-  if(!card) return;
-  apri(card.dataset.programma);
-});
-
-// Tastiera: Enter / Space
-document.getElementById("cards").addEventListener("keydown", (e) => {
-  const card = e.target.closest(".card");
-  if(!card) return;
-  if(e.key === "Enter" || e.key === " "){
-    e.preventDefault();
-    apri(card.dataset.programma);
-  }
-});
-
-// Footer active state (solo UI)
-document.getElementById("footer").addEventListener("click", (e) => {
-  const btn = e.target.closest("button");
-  if(!btn) return;
-  document.querySelectorAll("#footer button").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-});
 </script>
 
 </body>
