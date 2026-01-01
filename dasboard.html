@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
+/* =======================
+   VARIABILI
+======================= */
 :root{
   --gold:#FFD700;
   --silver:#C0C0C0;
@@ -19,10 +22,15 @@
   --card:#121827;
 }
 
+/* =======================
+   RESET
+======================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
 body{background:var(--dark);color:#fff;min-height:100vh}
 
-/* HEADER */
+/* =======================
+   HEADER
+======================= */
 .header{
   padding:20px;
   text-align:center;
@@ -37,7 +45,9 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 }
 .subtitle{font-size:14px;color:var(--silver)}
 
-/* GRID */
+/* =======================
+   GRID CARTE
+======================= */
 .container{padding:15px 15px 90px}
 .cards{
   display:grid;
@@ -54,8 +64,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   text-align:center;
   background:linear-gradient(145deg,#121827,#0A0E17);
   border:1px solid rgba(255,215,0,.15);
-  transition:.3s;
-  cursor:pointer;
+  transition:.3s
 }
 .card:hover{
   transform:translateY(-8px) scale(1.03);
@@ -75,7 +84,9 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border-radius:10px
 }
 
-/* FOOTER */
+/* =======================
+   FOOTER
+======================= */
 .footer{
   position:fixed;
   bottom:0;left:0;
@@ -98,6 +109,35 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 }
 .footer i{font-size:20px;color:var(--silver)}
 .footer .active i{color:var(--gold)}
+
+/* =======================
+   MODAL
+======================= */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  z-index:999
+}
+.modal-box{
+  background:var(--card);
+  border-radius:20px;
+  padding:25px;
+  max-width:500px;
+  width:100%;
+  border:1px solid rgba(255,215,0,.3)
+}
+.modal-header{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:15px
+}
+.close{cursor:pointer;font-size:24px;color:var(--silver)}
+.close:hover{color:var(--gold)}
 </style>
 </head>
 
@@ -111,41 +151,51 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 <main class="container">
   <section class="cards">
 
-    <div class="card" onclick="apri('acquisizione')">
+    <a class="card" data-card="acquisizione">
       <i class="fas fa-download"></i>
       <h3>ACQUISIZIONE</h3>
       <p>Nuovi clienti</p>
       <span class="badge">3</span>
-    </div>
+    </a>
 
-    <div class="card" onclick="apri('business')">
+    <a class="card" data-card="business">
       <i class="fas fa-briefcase"></i>
       <h3>BUSINESS</h3>
       <p>Gestione</p>
-    </div>
+    </a>
 
-    <div class="card" onclick="apri('lead')">
+    <a class="card" data-card="lead">
       <i class="fas fa-funnel-dollar"></i>
       <h3>LEAD</h3>
       <p>Pipeline</p>
       <span class="badge">12</span>
-    </div>
+    </a>
 
-    <div class="card" onclick="apri('postvendita')">
+    <a class="card" data-card="postvendita">
       <i class="fas fa-handshake"></i>
       <h3>POST-VENDITA</h3>
       <p>Fidelizzazione</p>
-    </div>
+    </a>
 
-    <div class="card" onclick="apri('promozione')">
+    <a class="card" data-card="promozione">
       <i class="fas fa-megaphone"></i>
       <h3>PROMOZIONE</h3>
       <p>Marketing</p>
       <span class="badge">5</span>
-    </div>
+    </a>
 
   </section>
 </main>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h2 id="modalTitle"></h2>
+      <span class="close" id="close">&times;</span>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
 
 <footer class="footer">
   <button class="active"><i class="fas fa-home"></i>Home</button>
@@ -156,26 +206,30 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 </footer>
 
 <script>
-/* =====================================================
-   CONFIGURAZIONE PROGRAMMI ESTERNI
-   👉 INCOLLA QUI GLI URL GITHUB PAGES
-===================================================== */
-const PROGRAMMI = {
-  acquisizione: "https://INSERISCI-URL.github.io/acquisizione/",
-  business: "",
-  lead: "",
-  postvendita: "",
-  promozione: ""
+const data={
+  acquisizione:"Strategie per acquisire nuovi clienti",
+  business:"Gestione operativa del business",
+  lead:"Pipeline e conversioni",
+  postvendita:"Assistenza e fidelizzazione",
+  promozione:"Marketing e campagne"
 };
 
-function apri(nome){
-  const url = PROGRAMMI[nome];
-  if(!url){
-    alert("Programma non ancora collegato");
-    return;
-  }
-  window.open(url, "_blank");
-}
+const modal=document.getElementById("modal");
+const title=document.getElementById("modalTitle");
+const body=document.getElementById("modalBody");
+
+document.querySelectorAll(".card").forEach(card=>{
+  card.onclick=e=>{
+    e.preventDefault();
+    const key=card.dataset.card;
+    title.textContent=key.toUpperCase();
+    body.textContent=data[key];
+    modal.style.display="flex";
+  };
+});
+
+document.getElementById("close").onclick=()=>modal.style.display="none";
+modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
 </script>
 
 </body>
