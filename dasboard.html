@@ -1,33 +1,28 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gestionale – Dashboard</title>
+<title>Dashboard 7 Aree</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-/* =======================
-   VARIABILI
-======================= */
 :root{
   --gold:#FFD700;
   --silver:#C0C0C0;
+  --blue:#1E90FF;
   --green:#32CD32;
+  --purple:#8a2be2;
   --dark:#0A0E17;
   --card:#121827;
 }
 
-/* =======================
-   RESET
-======================= */
 *{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
 body{background:var(--dark);color:#fff;min-height:100vh}
 
-/* =======================
-   HEADER
-======================= */
+/* HEADER */
 .header{
   padding:20px;
   text-align:center;
@@ -42,19 +37,17 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 }
 .subtitle{font-size:14px;color:var(--silver)}
 
-/* =======================
-   GRID CARTE
-======================= */
+/* GRID */
 .container{padding:15px 15px 90px}
 .cards{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
   gap:15px
 }
 .card{
   position:relative;
   padding:20px;
-  min-height:150px;
+  min-height:140px;
   border-radius:16px;
   text-decoration:none;
   color:#fff;
@@ -63,7 +56,6 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border:1px solid rgba(255,215,0,.15);
   transition:.3s;
   cursor:pointer;
-  user-select:none;
 }
 .card:hover{
   transform:translateY(-8px) scale(1.03);
@@ -71,10 +63,8 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   box-shadow:0 15px 30px rgba(255,215,0,.15)
 }
 .card i{font-size:32px;color:var(--gold);margin-bottom:10px}
-.card h3{font-size:16px;margin-bottom:6px;letter-spacing:.06em}
-.card p{font-size:12px;color:rgba(255,255,255,.72);line-height:1.3}
-
-/* badge opzionale */
+.card h3{font-size:18px;margin-bottom:5px}
+.card p{font-size:12px;color:rgba(255,255,255,.7)}
 .badge{
   position:absolute;
   top:10px;
@@ -85,20 +75,7 @@ body{background:var(--dark);color:#fff;min-height:100vh}
   border-radius:10px
 }
 
-/* stato non collegato */
-.card.disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-.card.disabled:hover{
-  transform:none;
-  box-shadow:none;
-  border-color:rgba(255,215,0,.15);
-}
-
-/* =======================
-   FOOTER (solo estetica)
-======================= */
+/* FOOTER */
 .footer{
   position:fixed;
   bottom:0;left:0;
@@ -127,115 +104,78 @@ body{background:var(--dark);color:#fff;min-height:100vh}
 <body>
 
 <header class="header">
-  <h1 class="main-title">GESTIONALE</h1>
-  <p class="subtitle">Dashboard • 7 pilastri + 1 spazio futuro</p>
+  <h1 class="main-title">DASHBOARD 7 AREE</h1>
+  <p class="subtitle">Gestisci il tuo business in modo strategico</p>
 </header>
 
 <main class="container">
   <section class="cards">
 
-    <div class="card" data-key="acquisire">
+    <div class="card" onclick="apri('acquisizione')">
       <i class="fas fa-download"></i>
-      <h3>1) ACQUISIRE</h3>
-      <p>Senza incarichi, non esiste il lavoro.</p>
-      <span class="badge" title="Solo esempio">NEW</span>
+      <h3>ACQUISIZIONE</h3>
+      <p>Nuovi clienti</p>
+      <span class="badge">3</span>
     </div>
 
-    <div class="card" data-key="promuovere">
-      <i class="fas fa-megaphone"></i>
-      <h3>2) PROMUOVERE</h3>
-      <p>La visibilità trasforma l’immobile in opportunità.</p>
-    </div>
-
-    <div class="card" data-key="lead">
-      <i class="fas fa-funnel-dollar"></i>
-      <h3>3) LEAD</h3>
-      <p>Creare domanda reale.</p>
-    </div>
-
-    <div class="card" data-key="followup">
-      <i class="fas fa-comments"></i>
-      <h3>4) FOLLOW-UP</h3>
-      <p>Il valore si costruisce nel tempo.</p>
-    </div>
-
-    <div class="card" data-key="trattativa">
-      <i class="fas fa-scale-balanced"></i>
-      <h3>5) TRATTATIVA</h3>
-      <p>Trasformare interesse in accordo.</p>
-    </div>
-
-    <div class="card" data-key="fidelizzare">
-      <i class="fas fa-handshake"></i>
-      <h3>6) FIDELIZZARE</h3>
-      <p>Il business continua dopo la vendita.</p>
-    </div>
-
-    <div class="card" data-key="backoffice">
+    <div class="card" onclick="apri('business')">
       <i class="fas fa-briefcase"></i>
-      <h3>7) BACK OFFICE</h3>
-      <p>Senza controllo, non c’è crescita.</p>
+      <h3>BUSINESS</h3>
+      <p>Gestione</p>
     </div>
 
-    <div class="card disabled" data-key="vuoto" title="Spazio futuro">
-      <i class="fas fa-plus"></i>
-      <h3>8) FUTURO</h3>
-      <p>Finestra vuota: la riempiamo dopo.</p>
+    <div class="card" onclick="apri('lead')">
+      <i class="fas fa-funnel-dollar"></i>
+      <h3>LEAD</h3>
+      <p>Pipeline</p>
+      <span class="badge">12</span>
+    </div>
+
+    <div class="card" onclick="apri('postvendita')">
+      <i class="fas fa-handshake"></i>
+      <h3>POST-VENDITA</h3>
+      <p>Fidelizzazione</p>
+    </div>
+
+    <div class="card" onclick="apri('promozione')">
+      <i class="fas fa-megaphone"></i>
+      <h3>PROMOZIONE</h3>
+      <p>Marketing</p>
+      <span class="badge">5</span>
     </div>
 
   </section>
 </main>
 
 <footer class="footer">
-  <button class="active" type="button"><i class="fas fa-home"></i>Home</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-chart-bar"></i>Stats</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-tasks"></i>Task</button>
-  <button type="button" onclick="alert('Lo aggiungiamo dopo')"><i class="fas fa-cog"></i>Setup</button>
+  <button class="active"><i class="fas fa-home"></i>Home</button>
+  <button><i class="fas fa-chart-bar"></i>Stats</button>
+  <button><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
+  <button><i class="fas fa-tasks"></i>Task</button>
+  <button><i class="fas fa-cog"></i>Setup</button>
 </footer>
 
 <script>
 /* =====================================================
-   CONFIG: URL PROGRAMMI ESTERNI (GitHub Pages)
-   - Dove mancava il link, ora apre Google (come richiesto)
+   CONFIGURAZIONE PROGRAMMI ESTERNI
+   👉 INCOLLA QUI GLI URL GITHUB PAGES
 ===================================================== */
-const GOOGLE = "https://www.google.com/";
-
 const PROGRAMMI = {
-  acquisire: "https://josephsocialmedia2-spec.github.io/acquisizione/",
-  promuovere: "https://josephsocialmedia2-spec.github.io/promozione/",
-  lead: "https://josephsocialmedia2-spec.github.io/lead/",
-  followup: GOOGLE,
-  trattativa: GOOGLE,
-  fidelizzare: GOOGLE,
-  backoffice: GOOGLE,
-  vuoto: ""
+  acquisizione: "https://INSERISCI-URL.github.io/acquisizione/",
+  business: "",
+  lead: "",
+  postvendita: "",
+  promozione: ""
 };
 
-function apriProgramma(key){
-  const url = PROGRAMMI[key];
+function apri(nome){
+  const url = PROGRAMMI[nome];
   if(!url){
     alert("Programma non ancora collegato");
     return;
   }
-  window.open(url, "_blank", "noopener,noreferrer");
+  window.open(url, "_blank");
 }
-
-// attacco click + stato
-document.querySelectorAll(".card").forEach(card => {
-  const key = card.getAttribute("data-key");
-  const url = PROGRAMMI[key];
-
-  // se non c'è url e non è la card "vuoto", la disabilito automaticamente
-  if(!url && key !== "vuoto"){
-    card.classList.add("disabled");
-  }
-
-  card.addEventListener("click", () => {
-    if(card.classList.contains("disabled")) return;
-    apriProgramma(key);
-  });
-});
 </script>
 
 </body>
