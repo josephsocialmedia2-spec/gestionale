@@ -1,236 +1,451 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard 7 Aree</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GESTIONALE - Dashboard</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-<style>
-/* =======================
-   VARIABILI
-======================= */
-:root{
-  --gold:#FFD700;
-  --silver:#C0C0C0;
-  --blue:#1E90FF;
-  --green:#32CD32;
-  --purple:#8a2be2;
-  --dark:#0A0E17;
-  --card:#121827;
-}
+  <!-- (Opzionale) Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
-/* =======================
-   RESET
-======================= */
-*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,Roboto,Arial,sans-serif}
-body{background:var(--dark);color:#fff;min-height:100vh}
+  <style>
+    :root{
+      --bg0:#07080b;
+      --bg1:#0b0f18;
+      --panel:#0f1422;
+      --text:#e9edf6;
+      --muted:#a9b2c7;
+      --gold:#d8b34a;
+      --gold2:#ffde73;
+      --border:rgba(233,237,246,.10);
+      --radius:18px;
+    }
 
-/* =======================
-   HEADER
-======================= */
-.header{
-  padding:20px;
-  text-align:center;
-  background:rgba(10,14,23,.9);
-  border-bottom:1px solid rgba(255,215,0,.2)
-}
-.main-title{
-  font-size:26px;
-  background:linear-gradient(to right,var(--gold),var(--silver));
-  -webkit-background-clip:text;
-  color:transparent
-}
-.subtitle{font-size:14px;color:var(--silver)}
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 600px at 20% -10%, rgba(216,179,74,.18), transparent 55%),
+        radial-gradient(900px 520px at 95% 15%, rgba(120,160,255,.13), transparent 55%),
+        radial-gradient(900px 520px at 10% 95%, rgba(255,222,115,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
+    }
 
-/* =======================
-   GRID CARTE
-======================= */
-.container{padding:15px 15px 90px}
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
-  gap:15px
-}
-.card{
-  position:relative;
-  padding:20px;
-  min-height:140px;
-  border-radius:16px;
-  text-decoration:none;
-  color:#fff;
-  text-align:center;
-  background:linear-gradient(145deg,#121827,#0A0E17);
-  border:1px solid rgba(255,215,0,.15);
-  transition:.3s
-}
-.card:hover{
-  transform:translateY(-8px) scale(1.03);
-  border-color:var(--gold);
-  box-shadow:0 15px 30px rgba(255,215,0,.15)
-}
-.card i{font-size:32px;color:var(--gold);margin-bottom:10px}
-.card h3{font-size:18px;margin-bottom:5px}
-.card p{font-size:12px;color:rgba(255,255,255,.7)}
-.badge{
-  position:absolute;
-  top:10px;
-  right:10px;
-  background:var(--green);
-  font-size:10px;
-  padding:3px 6px;
-  border-radius:10px
-}
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px 110px; /* spazio per footer */
+    }
 
-/* =======================
-   FOOTER
-======================= */
-.footer{
-  position:fixed;
-  bottom:0;left:0;
-  width:100%;
-  display:flex;
-  justify-content:space-around;
-  background:rgba(10,14,23,.95);
-  border-top:1px solid rgba(255,215,0,.2);
-  padding:12px
-}
-.footer button{
-  background:none;
-  border:none;
-  color:#fff;
-  font-size:12px;
-  display:flex;
-  flex-direction:column;
-  gap:5px;
-  cursor:pointer
-}
-.footer i{font-size:20px;color:var(--silver)}
-.footer .active i{color:var(--gold)}
+    header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      padding: 16px 14px 10px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+    }
 
-/* =======================
-   MODAL
-======================= */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  z-index:999
-}
-.modal-box{
-  background:var(--card);
-  border-radius:20px;
-  padding:25px;
-  max-width:500px;
-  width:100%;
-  border:1px solid rgba(255,215,0,.3)
-}
-.modal-header{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:15px
-}
-.close{cursor:pointer;font-size:24px;color:var(--silver)}
-.close:hover{color:var(--gold)}
-</style>
+    .brand h1{
+      margin:0;
+      font-size: clamp(28px, 3.2vw, 44px);
+      letter-spacing: .14em;
+      font-weight: 800;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+    .brand p{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing:.02em;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(216,179,74,.35);
+      background: rgba(216,179,74,.08);
+      color: var(--gold2);
+      font-size: 13px;
+      white-space: nowrap;
+      user-select:none;
+    }
+    .badge i{ opacity:.95; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .card{
+      grid-column: span 4;
+      position:relative;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(700px 220px at 20% 0%, rgba(216,179,74,.10), transparent 50%),
+        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01));
+      box-shadow: 0 10px 26px rgba(0,0,0,.35);
+      padding: 16px 16px 14px;
+      cursor:pointer;
+      outline:none;
+      min-height: 132px;
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: var(--radius);
+      pointer-events:none;
+      opacity:0;
+      transition: opacity .18s ease;
+      box-shadow: 0 0 0 1px rgba(216,179,74,.22), 0 0 18px rgba(216,179,74,.22);
+    }
+
+    .card:hover,
+    .card:focus-visible{
+      transform: translateY(-6px);
+      border-color: rgba(216,179,74,.55);
+      box-shadow: 0 18px 50px rgba(0,0,0,.55);
+    }
+    .card:hover::after,
+    .card:focus-visible::after{ opacity: 1; }
+
+    .cardTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .icon{
+      width:46px;
+      height:46px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(216,179,74,.25);
+      background: rgba(216,179,74,.08);
+      color: var(--gold2);
+      flex: 0 0 auto;
+    }
+    .icon i{ font-size: 18px; }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 10px;
+      border-radius:999px;
+      border: 1px solid rgba(233,237,246,.12);
+      background: rgba(15,20,34,.55);
+      color: rgba(233,237,246,.85);
+      font-size: 12px;
+      user-select:none;
+    }
+    .chip i{ opacity:.85; }
+
+    .card h3{
+      margin: 0 0 6px;
+      font-size: 16px;
+      letter-spacing:.02em;
+      font-weight: 700;
+    }
+    .card p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .hint{
+      margin-top: 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      color: rgba(233,237,246,.70);
+      font-size: 12px;
+    }
+    .hint .kbd{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border:1px solid rgba(233,237,246,.16);
+      border-bottom-color: rgba(233,237,246,.26);
+      background: rgba(255,255,255,.03);
+      padding: 6px 9px;
+      border-radius: 10px;
+      color: rgba(233,237,246,.80);
+      font-weight: 600;
+    }
+
+    @media (max-width: 980px){
+      .card{ grid-column: span 6; }
+    }
+    @media (max-width: 620px){
+      header{ flex-direction: column; align-items: flex-start; }
+      .badge{ width: 100%; justify-content:center; }
+      .card{ grid-column: span 12; }
+    }
+
+    /* Footer */
+    .footer{
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      padding: 12px 14px 16px;
+      background: linear-gradient(180deg, rgba(7,8,11,0), rgba(7,8,11,.55) 25%, rgba(7,8,11,.92));
+      backdrop-filter: blur(10px);
+      z-index: 50;
+    }
+    .dock{
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: 999px;
+      border: 1px solid rgba(233,237,246,.12);
+      background: rgba(15,20,34,.74);
+      box-shadow: 0 14px 40px rgba(0,0,0,.55);
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px;
+    }
+    .dockBtn{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: rgba(255,255,255,.02);
+      color: rgba(233,237,246,.86);
+      cursor:pointer;
+      font-weight: 700;
+      letter-spacing:.01em;
+      transition: transform .14s ease, border-color .14s ease, background .14s ease, color .14s ease;
+      user-select:none;
+      outline:none;
+    }
+    .dockBtn i{ opacity:.92; }
+    .dockBtn:hover,
+    .dockBtn:focus-visible{
+      transform: translateY(-2px);
+      border-color: rgba(216,179,74,.55);
+      background: rgba(216,179,74,.10);
+      color: var(--gold2);
+    }
+    .dockBtn:active{ transform: translateY(0px); }
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 92px;
+      transform: translateX(-50%);
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(233,237,246,.14);
+      background: rgba(15,20,34,.86);
+      color: rgba(233,237,246,.92);
+      box-shadow: 0 12px 34px rgba(0,0,0,.55);
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .16s ease, transform .16s ease;
+      z-index: 60;
+      max-width: calc(100vw - 40px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+    }
+  </style>
 </head>
 
 <body>
+  <main class="wrap" id="top">
+    <header>
+      <div class="brand">
+        <h1>GESTIONALE</h1>
+        <p>Dashboard operativa - strumenti &amp; collegamenti</p>
+      </div>
+      <div class="badge" aria-label="Suggerimento">
+        <i class="fa-solid fa-arrow-pointer"></i>
+        Clicca una card per aprire
+      </div>
+    </header>
 
-<header class="header">
-  <h1 class="main-title">DASHBOARD 7 AREE</h1>
-  <p class="subtitle">Gestisci il tuo business in modo strategico</p>
-</header>
+    <section class="grid" aria-label="Moduli">
+      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/acquisizione/">
+        <div class="cardTop">
+          <div class="icon"><i class="fa-solid fa-building-circle-arrow-right"></i></div>
+          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
+        </div>
+        <h3>Acquisizione</h3>
+        <p>Gestione attivita di acquisizione.</p>
+        <div class="hint">
+          <span>Modulo esterno</span>
+          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
+        </div>
+      </article>
 
-<main class="container">
-  <section class="cards">
+      <article class="card" role="button" tabindex="0" data-url="#top">
+        <div class="cardTop">
+          <div class="icon"><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="chip"><i class="fa-solid fa-house"></i> Qui</div>
+        </div>
+        <h3>Gestionale</h3>
+        <p>Panoramica e controllo.</p>
+        <div class="hint">
+          <span>Sezione corrente</span>
+          <span class="kbd"><i class="fa-solid fa-arrow-up"></i> Top</span>
+        </div>
+      </article>
 
-    <a class="card" data-card="acquisizione">
-      <i class="fas fa-download"></i>
-      <h3>ACQUISIZIONE</h3>
-      <p>Nuovi clienti</p>
-      <span class="badge">3</span>
-    </a>
+      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/lead/">
+        <div class="cardTop">
+          <div class="icon"><i class="fa-solid fa-user-check"></i></div>
+          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
+        </div>
+        <h3>Lead</h3>
+        <p>Tracciamento e gestione contatti.</p>
+        <div class="hint">
+          <span>Modulo esterno</span>
+          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
+        </div>
+      </article>
 
-    <a class="card" data-card="business">
-      <i class="fas fa-briefcase"></i>
-      <h3>BUSINESS</h3>
-      <p>Gestione</p>
-    </a>
+      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/promozione/">
+        <div class="cardTop">
+          <div class="icon"><i class="fa-solid fa-bullhorn"></i></div>
+          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
+        </div>
+        <h3>Promozione</h3>
+        <p>Campagne, pubblicazioni, visibilita.</p>
+        <div class="hint">
+          <span>Modulo esterno</span>
+          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
+        </div>
+      </article>
 
-    <a class="card" data-card="lead">
-      <i class="fas fa-funnel-dollar"></i>
-      <h3>LEAD</h3>
-      <p>Pipeline</p>
-      <span class="badge">12</span>
-    </a>
+      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/Digital-Sale-Immobiliare/">
+        <div class="cardTop">
+          <div class="icon"><i class="fa-solid fa-handshake-angle"></i></div>
+          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
+        </div>
+        <h3>Digital-Sale-Immobiliare</h3>
+        <p>Strumenti vendita digitale.</p>
+        <div class="hint">
+          <span>Modulo esterno</span>
+          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
+        </div>
+      </article>
+    </section>
+  </main>
 
-    <a class="card" data-card="postvendita">
-      <i class="fas fa-handshake"></i>
-      <h3>POST-VENDITA</h3>
-      <p>Fidelizzazione</p>
-    </a>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <a class="card" data-card="promozione">
-      <i class="fas fa-megaphone"></i>
-      <h3>PROMOZIONE</h3>
-      <p>Marketing</p>
-      <span class="badge">5</span>
-    </a>
+  <footer class="footer" aria-label="Barra strumenti">
+    <nav class="dock">
+      <button class="dockBtn" type="button" data-action="home" aria-label="Home">
+        <i class="fa-solid fa-house"></i><span>Home</span>
+      </button>
+      <button class="dockBtn" type="button" data-action="stats" aria-label="Stats">
+        <i class="fa-solid fa-chart-line"></i><span>Stats</span>
+      </button>
+      <button class="dockBtn" type="button" data-action="new" aria-label="Nuovo">
+        <i class="fa-solid fa-circle-plus"></i><span>Nuovo</span>
+      </button>
+      <button class="dockBtn" type="button" data-action="task" aria-label="Task">
+        <i class="fa-solid fa-list-check"></i><span>Task</span>
+      </button>
+      <button class="dockBtn" type="button" data-action="setup" aria-label="Setup">
+        <i class="fa-solid fa-gear"></i><span>Setup</span>
+      </button>
+    </nav>
+  </footer>
 
-  </section>
-</main>
+  <script>
+    function openLink(url){
+      if(!url) return;
+      if(url.startsWith('#')){
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
 
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <div class="modal-header">
-      <h2 id="modalTitle"></h2>
-      <span class="close" id="close">&times;</span>
-    </div>
-    <div id="modalBody"></div>
-  </div>
-</div>
+    function cardKeyHandler(e){
+      if(e.key === "Enter" || e.key === " "){
+        e.preventDefault();
+        const url = e.currentTarget.getAttribute("data-url");
+        openLink(url);
+      }
+    }
 
-<footer class="footer">
-  <button class="active"><i class="fas fa-home"></i>Home</button>
-  <button><i class="fas fa-chart-bar"></i>Stats</button>
-  <button><i class="fas fa-plus-circle" style="color:var(--gold)"></i>Nuovo</button>
-  <button><i class="fas fa-tasks"></i>Task</button>
-  <button><i class="fas fa-cog"></i>Setup</button>
-</footer>
+    document.querySelectorAll(".card").forEach(card => {
+      card.addEventListener("click", () => openLink(card.getAttribute("data-url")));
+      card.addEventListener("keydown", cardKeyHandler);
+    });
 
-<script>
-const data={
-  acquisizione:"Strategie per acquisire nuovi clienti",
-  business:"Gestione operativa del business",
-  lead:"Pipeline e conversioni",
-  postvendita:"Assistenza e fidelizzazione",
-  promozione:"Marketing e campagne"
-};
+    const toast = document.getElementById("toast");
+    let toastTimer = null;
 
-const modal=document.getElementById("modal");
-const title=document.getElementById("modalTitle");
-const body=document.getElementById("modalBody");
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1600);
+    }
 
-document.querySelectorAll(".card").forEach(card=>{
-  card.onclick=e=>{
-    e.preventDefault();
-    const key=card.dataset.card;
-    title.textContent=key.toUpperCase();
-    body.textContent=data[key];
-    modal.style.display="flex";
-  };
-});
-
-document.getElementById("close").onclick=()=>modal.style.display="none";
-modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
-</script>
-
+    document.querySelectorAll(".dockBtn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.getAttribute("data-action");
+        switch(action){
+          case "home":
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            break;
+          case "stats":
+            showToast("Stats (placeholder)");
+            break;
+          case "new":
+            showToast("Nuovo (placeholder)");
+            break;
+          case "task":
+            showToast("Task (placeholder)");
+            break;
+          case "setup":
+            showToast("Setup (placeholder)");
+            break;
+        }
+      });
+    });
+  </script>
 </body>
 </html>
