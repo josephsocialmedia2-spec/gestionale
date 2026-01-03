@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-  <!-- (Opzionale) Google Font -->
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -29,423 +29,206 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: Inter, system-ui, sans-serif;
       color:var(--text);
       background:
         radial-gradient(1100px 600px at 20% -10%, rgba(216,179,74,.18), transparent 55%),
         radial-gradient(900px 520px at 95% 15%, rgba(120,160,255,.13), transparent 55%),
-        radial-gradient(900px 520px at 10% 95%, rgba(255,222,115,.08), transparent 60%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
     }
 
     .wrap{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px 18px 110px; /* spazio per footer */
+      max-width:1100px;
+      margin:0 auto;
+      padding:28px 18px 110px;
     }
 
     header{
       display:flex;
-      align-items:flex-end;
       justify-content:space-between;
-      gap:16px;
-      padding: 16px 14px 10px;
+      align-items:flex-end;
+      padding:16px;
+      border-radius:18px;
       border:1px solid var(--border);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      backdrop-filter: blur(8px);
+      background:rgba(255,255,255,.03);
     }
 
     .brand h1{
       margin:0;
-      font-size: clamp(28px, 3.2vw, 44px);
-      letter-spacing: .14em;
-      font-weight: 800;
-      text-transform: uppercase;
-      line-height: 1.05;
+      font-size:40px;
+      letter-spacing:.14em;
     }
+
     .brand p{
-      margin:8px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      letter-spacing:.02em;
+      margin-top:8px;
+      color:var(--muted);
+      font-size:14px;
     }
+
     .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius: 999px;
+      padding:10px 14px;
+      border-radius:999px;
       border:1px solid rgba(216,179,74,.35);
-      background: rgba(216,179,74,.08);
-      color: var(--gold2);
-      font-size: 13px;
-      white-space: nowrap;
-      user-select:none;
+      background:rgba(216,179,74,.08);
+      color:var(--gold2);
+      font-size:13px;
     }
-    .badge i{ opacity:.95; }
 
     .grid{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
-      margin-top: 16px;
+      grid-template-columns:repeat(12,1fr);
+      gap:14px;
+      margin-top:20px;
     }
 
     .card{
-      grid-column: span 4;
-      position:relative;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background:
-        radial-gradient(700px 220px at 20% 0%, rgba(216,179,74,.10), transparent 50%),
-        linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.01));
-      box-shadow: 0 10px 26px rgba(0,0,0,.35);
-      padding: 16px 16px 14px;
+      grid-column:span 4;
+      border-radius:18px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:rgba(255,255,255,.03);
       cursor:pointer;
-      outline:none;
-      min-height: 132px;
-      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+      transition:.2s;
     }
 
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border-radius: var(--radius);
-      pointer-events:none;
-      opacity:0;
-      transition: opacity .18s ease;
-      box-shadow: 0 0 0 1px rgba(216,179,74,.22), 0 0 18px rgba(216,179,74,.22);
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(216,179,74,.6);
     }
-
-    .card:hover,
-    .card:focus-visible{
-      transform: translateY(-6px);
-      border-color: rgba(216,179,74,.55);
-      box-shadow: 0 18px 50px rgba(0,0,0,.55);
-    }
-    .card:hover::after,
-    .card:focus-visible::after{ opacity: 1; }
 
     .cardTop{
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom:10px;
     }
 
     .icon{
       width:46px;
       height:46px;
-      border-radius: 14px;
       display:grid;
       place-items:center;
-      border: 1px solid rgba(216,179,74,.25);
-      background: rgba(216,179,74,.08);
-      color: var(--gold2);
-      flex: 0 0 auto;
+      border-radius:14px;
+      background:rgba(216,179,74,.1);
+      color:var(--gold2);
     }
-    .icon i{ font-size: 18px; }
 
     .chip{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:7px 10px;
+      padding:6px 10px;
       border-radius:999px;
-      border: 1px solid rgba(233,237,246,.12);
-      background: rgba(15,20,34,.55);
-      color: rgba(233,237,246,.85);
-      font-size: 12px;
-      user-select:none;
+      font-size:12px;
+      border:1px solid rgba(255,255,255,.15);
     }
-    .chip i{ opacity:.85; }
 
     .card h3{
-      margin: 0 0 6px;
-      font-size: 16px;
-      letter-spacing:.02em;
-      font-weight: 700;
+      margin:0 0 6px;
+      font-size:16px;
     }
+
     .card p{
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
+      margin:0;
+      font-size:13px;
+      color:var(--muted);
     }
 
-    .hint{
-      margin-top: 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      color: rgba(233,237,246,.70);
-      font-size: 12px;
+    @media(max-width:900px){
+      .card{grid-column:span 6;}
     }
-    .hint .kbd{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      border:1px solid rgba(233,237,246,.16);
-      border-bottom-color: rgba(233,237,246,.26);
-      background: rgba(255,255,255,.03);
-      padding: 6px 9px;
-      border-radius: 10px;
-      color: rgba(233,237,246,.80);
-      font-weight: 600;
-    }
-
-    @media (max-width: 980px){
-      .card{ grid-column: span 6; }
-    }
-    @media (max-width: 620px){
-      header{ flex-direction: column; align-items: flex-start; }
-      .badge{ width: 100%; justify-content:center; }
-      .card{ grid-column: span 12; }
-    }
-
-    /* Footer */
-    .footer{
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      padding: 12px 14px 16px;
-      background: linear-gradient(180deg, rgba(7,8,11,0), rgba(7,8,11,.55) 25%, rgba(7,8,11,.92));
-      backdrop-filter: blur(10px);
-      z-index: 50;
-    }
-    .dock{
-      max-width: 1100px;
-      margin: 0 auto;
-      border-radius: 999px;
-      border: 1px solid rgba(233,237,246,.12);
-      background: rgba(15,20,34,.74);
-      box-shadow: 0 14px 40px rgba(0,0,0,.55);
-      display:flex;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px;
-    }
-    .dockBtn{
-      flex:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      padding: 12px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      background: rgba(255,255,255,.02);
-      color: rgba(233,237,246,.86);
-      cursor:pointer;
-      font-weight: 700;
-      letter-spacing:.01em;
-      transition: transform .14s ease, border-color .14s ease, background .14s ease, color .14s ease;
-      user-select:none;
-      outline:none;
-    }
-    .dockBtn i{ opacity:.92; }
-    .dockBtn:hover,
-    .dockBtn:focus-visible{
-      transform: translateY(-2px);
-      border-color: rgba(216,179,74,.55);
-      background: rgba(216,179,74,.10);
-      color: var(--gold2);
-    }
-    .dockBtn:active{ transform: translateY(0px); }
-
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 92px;
-      transform: translateX(-50%);
-      padding: 10px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(233,237,246,.14);
-      background: rgba(15,20,34,.86);
-      color: rgba(233,237,246,.92);
-      box-shadow: 0 12px 34px rgba(0,0,0,.55);
-      font-size: 13px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity .16s ease, transform .16s ease;
-      z-index: 60;
-      max-width: calc(100vw - 40px);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(-6px);
+    @media(max-width:600px){
+      .card{grid-column:span 12;}
     }
   </style>
 </head>
 
 <body>
-  <main class="wrap" id="top">
-    <header>
-      <div class="brand">
-        <h1>GESTIONALE</h1>
-        <p>Dashboard operativa - strumenti &amp; collegamenti</p>
+<main class="wrap">
+  <header>
+    <div class="brand">
+      <h1>GESTIONALE</h1>
+      <p>Dashboard operativa</p>
+    </div>
+    <div class="badge"><i class="fa-solid fa-arrow-pointer"></i> Clicca una card</div>
+  </header>
+
+  <section class="grid">
+
+    <!-- ESISTENTI -->
+    <article class="card" data-url="https://josephsocialmedia2-spec.github.io/acquisizione/">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-building"></i></div>
+        <div class="chip">Apri</div>
       </div>
-      <div class="badge" aria-label="Suggerimento">
-        <i class="fa-solid fa-arrow-pointer"></i>
-        Clicca una card per aprire
+      <h3>Acquisizione</h3>
+      <p>Gestione acquisizione</p>
+    </article>
+
+    <article class="card" data-url="https://josephsocialmedia2-spec.github.io/lead/">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-user-check"></i></div>
+        <div class="chip">Apri</div>
       </div>
-    </header>
+      <h3>Lead</h3>
+      <p>Gestione contatti</p>
+    </article>
 
-    <section class="grid" aria-label="Moduli">
-      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/acquisizione/">
-        <div class="cardTop">
-          <div class="icon"><i class="fa-solid fa-building-circle-arrow-right"></i></div>
-          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
-        </div>
-        <h3>Acquisizione</h3>
-        <p>Gestione attivita di acquisizione.</p>
-        <div class="hint">
-          <span>Modulo esterno</span>
-          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
-        </div>
-      </article>
+    <article class="card" data-url="https://josephsocialmedia2-spec.github.io/promozione/">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-bullhorn"></i></div>
+        <div class="chip">Apri</div>
+      </div>
+      <h3>Promozione</h3>
+      <p>Campagne e visibilità</p>
+    </article>
 
-      <article class="card" role="button" tabindex="0" data-url="#top">
-        <div class="cardTop">
-          <div class="icon"><i class="fa-solid fa-gauge-high"></i></div>
-          <div class="chip"><i class="fa-solid fa-house"></i> Qui</div>
-        </div>
-        <h3>Gestionale</h3>
-        <p>Panoramica e controllo.</p>
-        <div class="hint">
-          <span>Sezione corrente</span>
-          <span class="kbd"><i class="fa-solid fa-arrow-up"></i> Top</span>
-        </div>
-      </article>
+    <article class="card" data-url="https://josephsocialmedia2-spec.github.io/Digital-Sale-Immobiliare/">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-handshake"></i></div>
+        <div class="chip">Apri</div>
+      </div>
+      <h3>Digital Sale</h3>
+      <p>Vendita immobiliare</p>
+    </article>
 
-      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/lead/">
-        <div class="cardTop">
-          <div class="icon"><i class="fa-solid fa-user-check"></i></div>
-          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
-        </div>
-        <h3>Lead</h3>
-        <p>Tracciamento e gestione contatti.</p>
-        <div class="hint">
-          <span>Modulo esterno</span>
-          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
-        </div>
-      </article>
+    <!-- NUOVE GOOGLE -->
+    <article class="card" data-url="https://www.google.com">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="chip">Apri</div>
+      </div>
+      <h3>Google</h3>
+      <p>Motore di ricerca</p>
+    </article>
 
-      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/promozione/">
-        <div class="cardTop">
-          <div class="icon"><i class="fa-solid fa-bullhorn"></i></div>
-          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
-        </div>
-        <h3>Promozione</h3>
-        <p>Campagne, pubblicazioni, visibilita.</p>
-        <div class="hint">
-          <span>Modulo esterno</span>
-          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
-        </div>
-      </article>
+    <article class="card" data-url="https://mail.google.com">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+        <div class="chip">Apri</div>
+      </div>
+      <h3>Gmail</h3>
+      <p>Email Google</p>
+    </article>
 
-      <article class="card" role="button" tabindex="0" data-url="https://josephsocialmedia2-spec.github.io/Digital-Sale-Immobiliare/">
-        <div class="cardTop">
-          <div class="icon"><i class="fa-solid fa-handshake-angle"></i></div>
-          <div class="chip"><i class="fa-solid fa-up-right-from-square"></i> Apri</div>
-        </div>
-        <h3>Digital-Sale-Immobiliare</h3>
-        <p>Strumenti vendita digitale.</p>
-        <div class="hint">
-          <span>Modulo esterno</span>
-          <span class="kbd"><i class="fa-solid fa-keyboard"></i> Invio / Spazio</span>
-        </div>
-      </article>
-    </section>
-  </main>
+    <article class="card" data-url="https://drive.google.com">
+      <div class="cardTop">
+        <div class="icon"><i class="fa-solid fa-cloud"></i></div>
+        <div class="chip">Apri</div>
+      </div>
+      <h3>Google Drive</h3>
+      <p>File e documenti</p>
+    </article>
 
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </section>
+</main>
 
-  <footer class="footer" aria-label="Barra strumenti">
-    <nav class="dock">
-      <button class="dockBtn" type="button" data-action="home" aria-label="Home">
-        <i class="fa-solid fa-house"></i><span>Home</span>
-      </button>
-      <button class="dockBtn" type="button" data-action="stats" aria-label="Stats">
-        <i class="fa-solid fa-chart-line"></i><span>Stats</span>
-      </button>
-      <button class="dockBtn" type="button" data-action="new" aria-label="Nuovo">
-        <i class="fa-solid fa-circle-plus"></i><span>Nuovo</span>
-      </button>
-      <button class="dockBtn" type="button" data-action="task" aria-label="Task">
-        <i class="fa-solid fa-list-check"></i><span>Task</span>
-      </button>
-      <button class="dockBtn" type="button" data-action="setup" aria-label="Setup">
-        <i class="fa-solid fa-gear"></i><span>Setup</span>
-      </button>
-    </nav>
-  </footer>
-
-  <script>
-    function openLink(url){
-      if(!url) return;
-      if(url.startsWith('#')){
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    function cardKeyHandler(e){
-      if(e.key === "Enter" || e.key === " "){
-        e.preventDefault();
-        const url = e.currentTarget.getAttribute("data-url");
-        openLink(url);
-      }
-    }
-
-    document.querySelectorAll(".card").forEach(card => {
-      card.addEventListener("click", () => openLink(card.getAttribute("data-url")));
-      card.addEventListener("keydown", cardKeyHandler);
+<script>
+  document.querySelectorAll(".card").forEach(card=>{
+    card.addEventListener("click",()=>{
+      window.open(card.dataset.url,"_blank");
     });
+  });
+</script>
 
-    const toast = document.getElementById("toast");
-    let toastTimer = null;
-
-    function showToast(msg){
-      toast.textContent = msg;
-      toast.classList.add("show");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => toast.classList.remove("show"), 1600);
-    }
-
-    document.querySelectorAll(".dockBtn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const action = btn.getAttribute("data-action");
-        switch(action){
-          case "home":
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            break;
-          case "stats":
-            showToast("Stats (placeholder)");
-            break;
-          case "new":
-            showToast("Nuovo (placeholder)");
-            break;
-          case "task":
-            showToast("Task (placeholder)");
-            break;
-          case "setup":
-            showToast("Setup (placeholder)");
-            break;
-        }
-      });
-    });
-  </script>
 </body>
 </html>
